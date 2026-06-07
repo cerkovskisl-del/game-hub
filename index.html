@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mans Spēļu Portāls</title>
+    <title>Pepe vs MrBeast - Gaming Hub</title>
     <style>
-        /* Moderns, tumšs dizains portālam */
+        /* Moderns, kiberpanka iedvesmots tumšais dizains */
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #0b0b0e;
+            font-family: 'Impact', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: radial-gradient(circle at center, #14151f 0%, #07080c 100%);
             color: #eeeeee;
             margin: 0;
             padding: 40px 20px;
@@ -16,176 +16,256 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* Valodas pārslēdzēja stils */
+        /* Valodas pārslēdzējs */
         .lang-switcher {
             align-self: flex-end;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             max-width: 1200px;
             width: 100%;
             display: flex;
             justify-content: flex-end;
             gap: 10px;
+            font-family: 'Segoe UI', sans-serif;
         }
 
         .lang-btn {
-            background: #16161a;
-            border: 1px solid #2a2a30;
+            background: rgba(22, 22, 26, 0.7);
+            border: 2px solid #2a2a30;
             color: #fff;
-            padding: 8px 14px;
-            border-radius: 6px;
+            padding: 8px 16px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
-            transition: all 0.2s ease;
+            letter-spacing: 1px;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         .lang-btn:hover, .lang-btn.active {
             background: #00ff66;
             color: #000;
             border-color: #00ff66;
+            box-shadow: 0 0 15px rgba(0, 255, 66, 0.4);
+            transform: translateY(-2px);
         }
 
         header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
+            position: relative;
         }
 
+        /* "Krutais" neona virsraksts */
         h1 {
-            font-size: 2.5rem;
+            font-size: 3.5rem;
             margin-bottom: 10px;
-            background: linear-gradient(45deg, #00ff66, #0070f3);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, #00ff66, #ff007f);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 8px rgba(0,255,66,0.2));
+        }
+
+        p.subtitle {
+            font-family: 'Segoe UI', sans-serif;
+            color: #8a8d9b;
+            font-size: 1.2rem;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
 
-        p.subtitle {
-            color: #888;
-            font-size: 1.1rem;
-        }
-
-        /* Spēļu izkārtojums (Datoram) */
+        /* Spēļu izkārtojuma režģis */
         .games-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
             max-width: 1200px;
             width: 100%;
         }
 
-        /* Spēļu kartītes stilizācija */
+        /* Krutā spēļu kartīte */
         .game-card {
-            background: #16161a;
-            border: 1px solid #2a2a30;
-            border-radius: 12px;
+            background: rgba(20, 20, 27, 0.65);
+            border: 2px solid #1f202e;
+            border-radius: 16px;
             overflow: hidden;
             text-decoration: none;
             color: #ffffff;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
             display: flex;
             flex-direction: column;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
         }
 
-        /* Efekts uzbraucot ar peli */
+        /* Dinamiskie neona spīdumi uz peli */
         .game-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-10px) scale(1.02);
             border-color: #00ff66;
-            box-shadow: 0 12px 20px rgba(0, 255, 102, 0.15);
+            box-shadow: 0 15px 30px rgba(0, 255, 66, 0.2), inset 0 0 15px rgba(0, 255, 66, 0.1);
         }
 
-        /* Miniatūras logs ar ikonām */
+        /* Katrai otrai kartītei iedodam MrBeast rozā spīdumu krasākai variācijai */
+        .game-card:nth-child(even):hover {
+            border-color: #ff007f;
+            box-shadow: 0 15px 30px rgba(255, 0, 127, 0.2), inset 0 0 15px rgba(255, 0, 127, 0.1);
+        }
+
+        /* Spēļu ikonu logi ar animētu fonu */
         .game-thumbnail {
             width: 100%;
-            height: 160px;
-            background: linear-gradient(135deg, #1e291e, #1a1a24);
+            height: 180px;
+            background: linear-gradient(135deg, #13141f 0%, #1c2e24 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3.5rem;
+            font-size: 4.5rem;
+            border-bottom: 2px solid #1f202e;
+            transition: all 0.4s ease;
         }
 
+        .game-card:hover .game-thumbnail {
+            background: linear-gradient(135deg, #1c2e24 0%, #13141f 100%);
+            font-size: 5rem;
+        }
+
+        .game-card:nth-child(even) .game-thumbnail {
+            background: linear-gradient(135deg, #13141f 0%, #3a1327 100%);
+        }
+        
+        .game-card:nth-child(even):hover .game-thumbnail {
+            background: linear-gradient(135deg, #3a1327 0%, #13141f 100%);
+        }
+
+        /* Informācijas sadaļa kartītē */
         .game-info {
-            padding: 20px;
+            padding: 25px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
+            font-family: 'Segoe UI', sans-serif;
         }
 
         .game-info h2 {
-            margin: 0 0 10px 0;
-            font-size: 1.4rem;
+            margin: 0 0 12px 0;
+            font-size: 1.5rem;
+            font-family: 'Impact', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
             color: #ffffff;
-            transition: color 0.2s;
+            transition: color 0.3s;
         }
 
         .game-card:hover .game-info h2 {
             color: #00ff66;
         }
+        .game-card:nth-child(even):hover .game-info h2 {
+            color: #ff007f;
+        }
 
         .game-info p {
             margin: 0;
-            color: #999;
+            color: #afb2c1;
             font-size: 0.95rem;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
+        /* Krutā spēļu poga */
         .play-btn {
             margin-top: auto;
-            padding-top: 15px;
+            padding: 12px 0;
+            margin-top: 20px;
+            background: #1a1b26;
+            border: 1px solid #2a2b3d;
+            border-radius: 8px;
             color: #00ff66;
+            text-align: center;
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 1rem;
             text-transform: uppercase;
             letter-spacing: 1px;
+            transition: all 0.3s ease;
         }
 
-        /* RESPONSĪVAIS DIZAINS TELEFONIEM (Piespiež rādīt 2 spēles rindā) */
+        .game-card:hover .play-btn {
+            background: #00ff66;
+            color: #000000;
+            border-color: #00ff66;
+            box-shadow: 0 0 15px rgba(0, 255, 66, 0.4);
+        }
+
+        .game-card:nth-child(even) .play-btn {
+            color: #ff007f;
+        }
+
+        .game-card:nth-child(even):hover .play-btn {
+            background: #ff007f;
+            color: #ffffff;
+            border-color: #ff007f;
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.4);
+        }
+
+        /* RESPONSĪVAIS DIZAINS TELEFONIEM (2 rindā un optimizēts) */
         @media (max-width: 600px) {
             body {
-                padding: 20px 10px;
+                padding: 20px 12px;
             }
             h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
+                letter-spacing: 1px;
             }
             p.subtitle {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
+                letter-spacing: 1px;
             }
             .lang-switcher {
                 justify-content: center;
-                margin-bottom: 30px;
+                margin-bottom: 25px;
             }
             
-            /* Šis kods sadala ekrānu tieši 2 vienādās daļās */
             .games-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 12px; /* Mazāka atstarpe starp kartītēm, lai labāk ietilptu */
+                gap: 12px;
+            }
+
+            .game-card {
+                border-radius: 12px;
             }
 
             .game-thumbnail {
-                height: 100px; /* Mazāks bildes augstums telefonā */
-                font-size: 2.2rem;
+                height: 110px;
+                font-size: 2.5rem;
+            }
+            .game-card:hover .game-thumbnail {
+                font-size: 2.7rem;
             }
 
             .game-info {
-                padding: 12px; /* Mazākas iekšmalas tekstam */
+                padding: 12px;
             }
 
             .game-info h2 {
-                font-size: 1rem; /* Mazāks virsraksts, lai neaizņem parudz vietas */
+                font-size: 1.1rem;
                 margin-bottom: 6px;
             }
 
             .game-info p {
-                font-size: 0.8rem; /* Mazāks apraksts */
-                line-height: 1.3;
+                font-size: 0.8rem;
+                line-height: 1.4;
+                display: -webkit-box;
+                -webkit-line-clamp: 3; /* Neļauj tekstam izstiept kartītes */
+                -webkit-box-orient: vertical;
+                overflow: hidden;
             }
 
             .play-btn {
-                font-size: 0.75rem;
-                padding-top: 10px;
+                font-size: 0.8rem;
+                padding: 8px 0;
+                margin-top: 12px;
+                border-radius: 6px;
             }
         }
     </style>
@@ -199,8 +279,8 @@
     </div>
 
     <header>
-        <h1 id="main-title">Mans Spēļu Portāls</h1>
-        <p id="main-subtitle" class="subtitle">Visas manis veidotās spēles vienuviet</p>
+        <h1 id="main-title">Pepe vs MrBeast</h1>
+        <p id="main-subtitle" class="subtitle">Visas spēles vienuviet</p>
     </header>
 
     <div class="games-grid">
@@ -210,7 +290,7 @@
             <div class="game-info">
                 <h2 id="g1-title">Pepe Army vs Mr Beast</h2>
                 <p id="g1-desc">Aizraujoša cīņas un stratēģijas spēle starp Pepe armiju un Mr Beast.</p>
-                <div class="play-btn class-play-btn">Spēlēt &rarr;</div>
+                <div class="play-btn class-play-btn">Spēlēt</div>
             </div>
         </a>
 
@@ -219,7 +299,7 @@
             <div class="game-info">
                 <h2 id="g2-title">Pepe vs MrBeast</h2>
                 <p id="g2-desc">Pirmā versija dinamiskajai Pepe un Mr Beast konfrontācijai.</p>
-                <div class="play-btn class-play-btn">Spēlēt &rarr;</div>
+                <div class="play-btn class-play-btn">Spēlēt</div>
             </div>
         </a>
 
@@ -228,7 +308,7 @@
             <div class="game-info">
                 <h2 id="g3-title">Pepe Platformer</h2>
                 <p id="g3-desc">Klasiska platformera stila spēle, kurā jāvada Pepe cauri dažādiem šķēršļiem un līmeņiem.</p>
-                <div class="play-btn class-play-btn">Spēlēt &rarr;</div>
+                <div class="play-btn class-play-btn">Spēlēt</div>
             </div>
         </a>
 
@@ -237,7 +317,7 @@
             <div class="game-info">
                 <h2 id="g4-title">Flappy Pepe Beast Escape</h2>
                 <p id="g4-desc">Klasiskā "Flappy" stila spēle, kurā Pepe jāmēģina izbēgt un izvairīties no šķēršļiem.</p>
-                <div class="play-btn class-play-btn">Spēlēt &rarr;</div>
+                <div class="play-btn class-play-btn">Spēlēt</div>
             </div>
         </a>
 
@@ -246,7 +326,7 @@
             <div class="game-info">
                 <h2 id="g5-title">Pepe Memory</h2>
                 <p id="g5-desc">Klasiska atmiņas spēle (Memory), kurā jāatrod vienādie attēlu pāri pēc iespējas ātrāk.</p>
-                <div class="play-btn class-play-btn">Spēlēt &rarr;</div>
+                <div class="play-btn class-play-btn">Spēlēt</div>
             </div>
         </a>
 
@@ -255,80 +335,48 @@
     <script>
         const translations = {
             lv: {
-                title: "Mans Spēļu Portāls",
-                subtitle: "Visas manis veidotās spēles vienuviet",
-                play: "Spēlēt →",
-                g1_title: "Pepe Army vs Mr Beast",
-                g1_desc: "Aizraujoša cīņas un stratēģijas spēle starp Pepe armiju un Mr Beast.",
-                g2_title: "Pepe vs MrBeast",
-                g2_desc: "Pirmā versija dinamiskajai Pepe un Mr Beast konfrontācijai.",
-                g3_title: "Pepe Platformer",
-                g3_desc: "Klasiska platformera stila spēle, kurā jāvada Pepe cauri dažādiem šķēršļiem un līmeņiem.",
-                g4_title: "Flappy Pepe Beast Escape",
-                g4_desc: "Klasiskā \"Flappy\" stila spēle, kurā Pepe jāmēģina izbēgt un izvairīties no šķēršļiem.",
-                g5_title: "Pepe Memory",
-                g5_desc: "Klasiska atmiņas spēle (Memory), kurā jāatrod vienādie attēlu pāri pēc iespējas ātrāk."
+                title: "Pepe vs MrBeast", subtitle: "Visas spēles vienuviet", play: "Spēlēt",
+                g1_title: "Pepe Army vs Mr Beast", g1_desc: "Aizraujoša cīņas un stratēģijas spēle starp Pepe armiju un Mr Beast.",
+                g2_title: "Pepe vs MrBeast", g2_desc: "Pirmā versija dinamiskajai Pepe un Mr Beast konfrontācijai.",
+                g3_title: "Pepe Platformer", g3_desc: "Klasiska platformera stila spēle, kurā jāvada Pepe cauri dažādiem šķēršļiem un līmeņiem.",
+                g4_title: "Flappy Pepe Beast Escape", g4_desc: "Klasiskā \"Flappy\" stila spēle, kurā Pepe jāmēģina izbēgt un izvairīties no šķēršļiem.",
+                g5_title: "Pepe Memory", g5_desc: "Klasiska atmiņas spēle (Memory), kurā jāatrod vienādie attēlu pāri pēc iespējas ātrāk."
             },
             en: {
-                title: "My Gaming Hub",
-                subtitle: "All my created games in one place",
-                play: "Play →",
-                g1_title: "Pepe Army vs Mr Beast",
-                g1_desc: "An exciting battle and strategy game between the Pepe army and Mr Beast.",
-                g2_title: "Pepe vs MrBeast",
-                g2_desc: "The first version of the dynamic confrontation between Pepe and Mr Beast.",
-                g3_title: "Pepe Platformer",
-                g3_desc: "A classic platformer-style game where you guide Pepe through various obstacles and levels.",
-                g4_title: "Flappy Pepe Beast Escape",
-                g4_desc: "A classic \"Flappy\" style game where Pepe must escape and avoid obstacles.",
-                g5_title: "Pepe Memory",
-                g5_desc: "A classic memory game where you have to find matching pairs of images as fast as possible."
+                title: "Pepe vs MrBeast", subtitle: "All games in one place", play: "Play",
+                g1_title: "Pepe Army vs Mr Beast", g1_desc: "An exciting battle and strategy game between the Pepe army and Mr Beast.",
+                g2_title: "Pepe vs MrBeast", g2_desc: "The first version of the dynamic confrontation between Pepe and Mr Beast.",
+                g3_title: "Pepe Platformer", g3_desc: "A classic platformer-style game where you guide Pepe through various obstacles and levels.",
+                g4_title: "Flappy Pepe Beast Escape", g4_desc: "A classic \"Flappy\" style game where Pepe must escape and avoid obstacles.",
+                g5_title: "Pepe Memory", g5_desc: "A classic memory game where you have to find matching pairs of images as fast as possible."
             },
             ru: {
-                title: "Мой Игровой Портал",
-                subtitle: "Все мои созданные игры в одном месте",
-                play: "Играть →",
-                g1_title: "Pepe Army vs Mr Beast",
-                g1_desc: "Увлекательная битва и стратегия между армией Пепе и Мистером Бистом.",
-                g2_title: "Pepe vs MrBeast",
-                g2_desc: "Первая версия динамичного противостояния Пепе и Мистера Биста.",
-                g3_title: "Pepe Platformer",
-                g3_desc: "Классический платформер, в котором нужно вести Пепе через различные препятствия и уровни.",
-                g4_title: "Flappy Pepe Beast Escape",
-                g4_desc: "Классическая игра в стиле \"Flappy\", где Пепе должен сбежать и избегать препятствий.",
-                g5_title: "Pepe Memory",
-                g5_desc: "Классическая игра на память (Memory), в которой нужно как можно быстрее найти парные картинки."
+                title: "Pepe vs MrBeast", subtitle: "Все игры в одном месте", play: "Играть",
+                g1_title: "Pepe Army vs Mr Beast", g1_desc: "Увлекательная битва и стратегия между армией Пепе и Мистером Бистом.",
+                g2_title: "Pepe vs MrBeast", g2_desc: "Первая версия динамичного противостояния Пепе и Мистера Биста.",
+                g3_title: "Pepe Platformer", g3_desc: "Классический платформер, в котором нужно вести Пепе через различные препятствия и уровни.",
+                g4_title: "Flappy Pepe Beast Escape", g4_desc: "Классическая игра в стиле \"Flappy\", где Пепе должен сбежать и избегать препятствий.",
+                g5_title: "Pepe Memory", g5_desc: "Классическая игра на память (Memory), в которой нужно как можно быстрее найти парные картинки."
             }
         };
 
         function changeLanguage(lang) {
-            // Main text
             document.getElementById('main-title').innerText = translations[lang].title;
             document.getElementById('main-subtitle').innerText = translations[lang].subtitle;
-
-            // Games content
             document.getElementById('g1-title').innerText = translations[lang].g1_title;
             document.getElementById('g1-desc').innerText = translations[lang].g1_desc;
-
             document.getElementById('g2-title').innerText = translations[lang].g2_title;
             document.getElementById('g2-desc').innerText = translations[lang].g2_desc;
-
             document.getElementById('g3-title').innerText = translations[lang].g3_title;
             document.getElementById('g3-desc').innerText = translations[lang].g3_desc;
-
             document.getElementById('g4-title').innerText = translations[lang].g4_title;
             document.getElementById('g4-desc').innerText = translations[lang].g4_desc;
-
             document.getElementById('g5-title').innerText = translations[lang].g5_title;
             document.getElementById('g5-desc').innerText = translations[lang].g5_desc;
 
-            // All "Play" buttons
             const playButtons = document.querySelectorAll('.class-play-btn');
-            playButtons.forEach(btn => {
-                btn.innerText = translations[lang].play;
-            });
+            playButtons.forEach(btn => { btn.innerText = translations[lang].play; });
 
-            // Update active button style
             const buttons = document.querySelectorAll('.lang-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
