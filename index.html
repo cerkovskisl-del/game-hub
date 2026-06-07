@@ -50,7 +50,7 @@
 
         header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
 
         h1 {
@@ -69,71 +69,6 @@
             font-size: 1.2rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-        }
-
-        .live-counter-container {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            background: rgba(16, 17, 26, 0.8);
-            border: 2px solid #232436;
-            border-radius: 20px;
-            padding: 20px;
-            max-width: 800px;
-            width: 100%;
-            margin-bottom: 50px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .counter-box {
-            text-align: center;
-            flex: 1;
-        }
-
-        .counter-vs {
-            font-size: 2rem;
-            color: #5d6175;
-            padding: 0 20px;
-        }
-
-        .counter-name {
-            font-size: 1.2rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-        }
-
-        .counter-link {
-            display: block;
-            font-size: 0.8rem;
-            color: #8a8d9b;
-            text-decoration: none;
-            margin-top: 4px;
-            font-family: 'Segoe UI', sans-serif;
-        }
-
-        .pepe-color { color: #00ff66; }
-        .beast-color { color: #ff007f; }
-
-        .counter-number {
-            font-size: 2.5rem;
-            font-variant-numeric: tabular-nums;
-        }
-
-        .live-dot {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            background-color: #ff0000;
-            border-radius: 50%;
-            margin-right: 6px;
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-            0% { opacity: 0.2; }
-            50% { opacity: 1; }
-            100% { opacity: 0.2; }
         }
 
         .games-grid {
@@ -187,12 +122,6 @@
             text-transform: uppercase;
         }
 
-        .game-info p {
-            margin: 0;
-            color: #afb2c1;
-            font-size: 0.95rem;
-        }
-
         .play-btn {
             margin-top: auto;
             padding: 12px 0;
@@ -209,8 +138,6 @@
         @media (max-width: 600px) {
             .games-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .game-thumbnail { height: 110px; font-size: 2.5rem; }
-            .counter-number { font-size: 1.8rem; }
-            .live-counter-container { flex-direction: column; gap: 15px; }
         }
     </style>
 </head>
@@ -227,26 +154,11 @@
         <p id="main-subtitle" class="subtitle">All games in one place</p>
     </header>
 
-    <div class="live-counter-container">
-        <div class="counter-box">
-            <div class="counter-name pepe-color"><span class="live-dot"></span>PEPE (@PEPE_real_true)</div>
-            <div id="pepe-subs" class="counter-number pepe-color">85</div>
-            <a href="https://www.youtube.com/@PEPE_real_true" target="_blank" class="counter-link pepe-color">👉 View Channel</a>
-        </div>
-        <div class="counter-vs">VS</div>
-        <div class="counter-box">
-            <div class="counter-name beast-color"><span class="live-dot"></span>MRBEAST</div>
-            <div id="beast-subs" class="counter-number beast-color">497,000,000</div>
-            <a href="https://www.youtube.com/@MrBeast" target="_blank" class="counter-link beast-color">👉 View Channel</a>
-        </div>
-    </div>
-
     <div class="games-grid">
         <a href="https://pepe-army-vs-mr-beast.vercel.app/" target="_blank" class="game-card">
             <div class="game-thumbnail">🪖</div>
             <div class="game-info">
                 <h2 id="g1-title">Pepe Army vs Mr Beast</h2>
-                <p id="g1-desc">An exciting battle and strategy game between the Pepe army and Mr Beast.</p>
                 <div class="play-btn class-play-btn">Play</div>
             </div>
         </a>
@@ -254,7 +166,6 @@
             <div class="game-thumbnail">⚔️</div>
             <div class="game-info">
                 <h2 id="g2-title">Pepe vs MrBeast</h2>
-                <p id="g2-desc">The first version of the dynamic confrontation between Pepe and Mr Beast.</p>
                 <div class="play-btn class-play-btn">Play</div>
             </div>
         </a>
@@ -262,7 +173,6 @@
             <div class="game-thumbnail">🏃‍♂️</div>
             <div class="game-info">
                 <h2 id="g3-title">Pepe Platformer</h2>
-                <p id="g3-desc">A classic platformer-style game where you guide Pepe through various obstacles and levels.</p>
                 <div class="play-btn class-play-btn">Play</div>
             </div>
         </a>
@@ -270,7 +180,6 @@
             <div class="game-thumbnail">🐦</div>
             <div class="game-info">
                 <h2 id="g4-title">Flappy Pepe Beast Escape</h2>
-                <p id="g4-desc">A classic "Flappy" style game where Pepe must escape and avoid obstacles.</p>
                 <div class="play-btn class-play-btn">Play</div>
             </div>
         </a>
@@ -278,7 +187,6 @@
             <div class="game-thumbnail">🧠</div>
             <div class="game-info">
                 <h2 id="g5-title">Pepe Memory</h2>
-                <p id="g5-desc">A classic memory game where you have to find matching pairs of images as fast as possible.</p>
                 <div class="play-btn class-play-btn">Play</div>
             </div>
         </a>
@@ -288,27 +196,18 @@
         const translations = {
             lv: {
                 title: "Pepe vs MrBeast", subtitle: "Visas spēles vienuviet", play: "Spēlēt",
-                g1_title: "Pepe Army vs Mr Beast", g1_desc: "Aizraujoša cīņas un stratēģijas spēle starp Pepe armiju un Mr Beast.",
-                g2_title: "Pepe vs MrBeast", g2_desc: "Pirmā versija dinamiskajai Pepe un Mr Beast konfrontācijai.",
-                g3_title: "Pepe Platformer", g3_desc: "Klasiska platformera stila spēle, kurā jāvada Pepe cauri dažādiem šķēršļiem un līmeņiem.",
-                g4_title: "Flappy Pepe Beast Escape", g4_desc: "Klasiskā \"Flappy\" stila spēle, kurā Pepe jāmēģina izbēgt un izvairīties no šķēršļiem.",
-                g5_title: "Pepe Memory", g5_desc: "Klasiska atmiņas spēle (Memory), kurā jāatrod vienādie attēlu pāri pēc iespējas ātrāk."
+                g1_title: "Pepe Army vs Mr Beast", g2_title: "Pepe vs MrBeast",
+                g3_title: "Pepe Platformer", g4_title: "Flappy Pepe Beast Escape", g5_title: "Pepe Memory"
             },
             en: {
                 title: "Pepe vs MrBeast", subtitle: "All games in one place", play: "Play",
-                g1_title: "Pepe Army vs Mr Beast", g1_desc: "An exciting battle and strategy game between the Pepe army and Mr Beast.",
-                g2_title: "Pepe vs MrBeast", g2_desc: "The first version of the dynamic confrontation between Pepe and Mr Beast.",
-                g3_title: "Pepe Platformer", g3_desc: "A classic platformer-style game where you guide Pepe through various obstacles and levels.",
-                g4_title: "Flappy Pepe Beast Escape", g4_desc: "A classic \"Flappy\" style game where Pepe must escape and avoid obstacles.",
-                g5_title: "Pepe Memory", g5_desc: "A classic memory game where you have to find matching pairs of images as fast as possible."
+                g1_title: "Pepe Army vs Mr Beast", g2_title: "Pepe vs MrBeast",
+                g3_title: "Pepe Platformer", g4_title: "Flappy Pepe Beast Escape", g5_title: "Pepe Memory"
             },
             ru: {
                 title: "Pepe vs MrBeast", subtitle: "Все игры в одном месте", play: "Играть",
-                g1_title: "Pepe Army vs Mr Beast", g1_desc: "Увлекательная битва и стратегия между армией Пепе и Мистером Бистом.",
-                g2_title: "Pepe vs MrBeast", g2_desc: "Первая версия динамичного противостояния Пепе и Мистера Биста.",
-                g3_title: "Pepe Platformer", g3_desc: "Классический платформер, в котором нужно вести Пепе через различные препятствия и уровни.",
-                g4_title: "Flappy Pepe Beast Escape", g4_desc: "Классическая игра в стиле \"Flappy\", где Пепе должен сбежать и избегать препятствий.",
-                g5_title: "Pepe Memory", g5_desc: "Классическая игра на память (Memory), в которой нужно как можно быстрее найти парные картинки."
+                g1_title: "Pepe Army vs Mr Beast", g2_title: "Pepe vs MrBeast",
+                g3_title: "Pepe Platformer", g4_title: "Flappy Pepe Beast Escape", g5_title: "Pepe Memory"
             }
         };
 
@@ -316,15 +215,10 @@
             document.getElementById('main-title').innerText = translations[lang].title;
             document.getElementById('main-subtitle').innerText = translations[lang].subtitle;
             document.getElementById('g1-title').innerText = translations[lang].g1_title;
-            document.getElementById('g1-desc').innerText = translations[lang].g1_desc;
             document.getElementById('g2-title').innerText = translations[lang].g2_title;
-            document.getElementById('g2-desc').innerText = translations[lang].g2_desc;
             document.getElementById('g3-title').innerText = translations[lang].g3_title;
-            document.getElementById('g3-desc').innerText = translations[lang].g3_desc;
             document.getElementById('g4-title').innerText = translations[lang].g4_title;
-            document.getElementById('g4-desc').innerText = translations[lang].g4_desc;
             document.getElementById('g5-title').innerText = translations[lang].g5_title;
-            document.getElementById('g5-desc').innerText = translations[lang].g5_desc;
 
             const playButtons = document.querySelectorAll('.class-play-btn');
             playButtons.forEach(btn => { btn.innerText = translations[lang].play; });
@@ -336,119 +230,8 @@
             else document.getElementById('btn-' + lang).classList.add('active');
         }
 
-        function formatNumber(num) {
-            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
-
-        // Kešatmiņa ar reālistiskiem sākuma skaitļiem
-        let cache = { pepe: 85, beast: 304000000 };
-
-        async function fetchWithTimeout(url, options = {}, timeout = 5000) {
-            const controller = new AbortController();
-            const id = setTimeout(() => controller.abort(), timeout);
-            try {
-                const response = await fetch(url, { ...options, signal: controller.signal });
-                clearTimeout(id);
-                return response;
-            } catch (e) {
-                clearTimeout(id);
-                throw e;
-            }
-        }
-
-        async function updateSubscribers() {
-            // --- 1. MRBEAST DATI ---
-            let beastUpdated = false;
-            try {
-                // Jauns, stabils datu avots MrBeast sekotājiem, kas neizmanto mirušo brayan3m domēnu
-                const res = await fetchWithTimeout('https://api.subscribercount.to/youtube/live/UCX6OQ3DkcsbYNE6H8uQQuVA');
-                if (res.ok) {
-                    const data = await res.json();
-                    if (data && data.subs) {
-                        cache.beast = parseInt(data.subs, 10);
-                        beastUpdated = true;
-                    }
-                }
-            } catch (e) {
-                console.warn("Primārais MrBeast API neizdevās, mēģina rezerves līniju...");
-            }
-
-            if (!beastUpdated) {
-                try {
-                    // Rezerves proxy sistēma caur neatkarīgu filtru koda ielādei
-                    const resAlt = await fetchWithTimeout('https://api.allorigins.win/get?url=' + encodeURIComponent('https://api.socialcounts.org/youtube-live-subscriber-count/UCX6OQ3DkcsbYNE6H8uQQuVA'));
-                    if (resAlt.ok) {
-                        const wrapper = await resAlt.json();
-                        const dataAlt = JSON.parse(wrapper.contents);
-                        if (dataAlt && dataAlt.est_sub) {
-                            cache.beast = parseInt(dataAlt.est_sub, 10);
-                        }
-                    }
-                } catch (e) {
-                    console.error("Visi MrBeast avoti bezsaistē. Tiek paturēts skaitlis: " + cache.beast);
-                }
-            }
-
-            // --- 2. PEPE DATI ---
-            let pepeUpdated = false;
-            try {
-                // Nolasa datus pa tiešo no YouTube publiskā profila, izmantojot CORS apiešanas inženieriju
-                const resPepe = await fetchWithTimeout('https://api.allorigins.win/get?url=' + encodeURIComponent('https://www.youtube.com/@PEPE_real_true'));
-                if (resPepe.ok) {
-                    const wrapper = await resPepe.json();
-                    const htmlText = wrapper.contents;
-                    
-                    // Regex salīdzināšana, lai atrastu precīzu abonentu skaitu lapas jēvfailā
-                    const match = htmlText.match(/"subscriberCountText"\s*:\s*\{\s*"simpleText"\s*:\s*"([^"]+)"\}/) || 
-                                  htmlText.match(/"content"\s*:\s*"([^"]+)\s+subscribers"/i);
-                    
-                    if (match && match[1]) {
-                        // Notīra tekstu (piem. "85 subscribers" pārvērš par "85")
-                        let parsedNum = parseInt(match[1].replace(/[^0-9]/g, ''), 10);
-                        if (!isNaN(parsedNum) && parsedNum > 0) {
-                            cache.pepe = parsedNum;
-                            pepeUpdated = true;
-                        }
-                    }
-                }
-            } catch (e) {
-                console.warn("Neizdevās nolasīt Pepe datus ar pirmo mēģinājumu...");
-            }
-
-            if (!pepeUpdated) {
-                try {
-                    // Otrs neatkarīgs proxy priekš Pepe kanāla analīzes
-                    const resPepeAlt = await fetchWithTimeout('https://api.codetabs.com/v1/proxy/?quest=https://www.youtube.com/@PEPE_real_true');
-                    if (resPepeAlt.ok) {
-                        const htmlText = await resPepeAlt.text();
-                        const match = htmlText.match(/"subscriberCountText"\s*:\s*\{\s*"simpleText"\s*:\s*"([^"]+)"\}/);
-                        if (match && match[1]) {
-                            let parsedNum = parseInt(match[1].replace(/[^0-9]/g, ''), 10);
-                            if (!isNaN(parsedNum) && parsedNum > 0) {
-                                cache.pepe = parsedNum;
-                            }
-                        }
-                    }
-                } catch (e) {
-                    console.error("Neizdevās atjaunot Pepe skaitu. Paturēts: " + cache.pepe);
-                }
-            }
-
-            // Atjaunina elementus mājaslapas skatā
-            document.getElementById('beast-subs').innerText = formatNumber(cache.beast);
-            document.getElementById('pepe-subs').innerText = formatNumber(cache.pepe);
-        }
-
         window.onload = function() {
             changeLanguage('en');
-            
-            // Nekavējoties aizpilda sākuma skaitļus, lai lapa neizskatītos tukša līdz pirmajam pieprasījumam
-            document.getElementById('pepe-subs').innerText = formatNumber(cache.pepe);
-            document.getElementById('beast-subs').innerText = formatNumber(cache.beast);
-            
-            // Palaiž pirmo datu ieguvi un atkārto to ik pēc 45 sekundēm, lai novērstu proxy bloķēšanu
-            updateSubscribers();
-            setInterval(updateSubscribers, 45000);
         };
     </script>
     <script defer src="/_vercel/insights/script.js"></script>
