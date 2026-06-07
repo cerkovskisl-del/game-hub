@@ -5,10 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pepe vs MrBeast - Gaming Hub</title>
     <style>
+        :root {
+            --pepe-green: #00ff66;
+            --beast-pink: #ff007f;
+            --bg-dark: #0a0b10;
+            --card-bg: rgba(20, 22, 37, 0.4);
+            --border-color: rgba(255, 255, 255, 0.08);
+        }
+
         body {
-            font-family: 'Impact', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: radial-gradient(circle at center, #14151f 0%, #07080c 100%);
-            color: #eeeeee;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: radial-gradient(circle at 50% 0%, #1a1c30 0%, var(--bg-dark) 70%);
+            color: #f3f4f6;
             margin: 0;
             padding: 40px 20px;
             display: flex;
@@ -18,126 +26,207 @@
             overflow-x: hidden;
         }
 
+        /* Valodas slēdzis */
         .lang-switcher {
             align-self: flex-end;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             max-width: 1200px;
             width: 100%;
             display: flex;
             justify-content: flex-end;
-            gap: 10px;
-            font-family: 'Segoe UI', sans-serif;
+            gap: 12px;
         }
 
         .lang-btn {
-            background: rgba(22, 22, 26, 0.7);
-            border: 2px solid #2a2a30;
-            color: #fff;
-            padding: 8px 16px;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: #9ca3af;
+            padding: 10px 20px;
+            border-radius: 12px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .lang-btn:hover {
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, var(--pepe-green), #00cc52);
+            color: #000;
+            border-color: var(--pepe-green);
+            box-shadow: 0 0 20px rgba(0, 255, 102, 0.3);
+        }
+
+        /* Galvene */
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            font-size: 4.5rem;
+            margin: 0 0 15px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--pepe-green) 30%, #00bfff 60%, var(--beast-pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+        }
+
+        p.subtitle {
+            font-size: 1.1rem;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        /* Spēļu izkārtojums */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 35px;
+            max-width: 1200px;
+            width: 100%;
+            padding-bottom: 40px;
+        }
+
+        /* Spēļu kartītes */
+        .game-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            overflow: hidden;
+            text-decoration: none;
+            color: #ffffff;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 24px;
+            padding: 1.5px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            background: rgba(26, 29, 50, 0.6);
+            border-color: rgba(0, 255, 102, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 255, 102, 0.1);
+        }
+
+        /* Katrai otrai kartītei iedodam rozā MrBeast akcentu pie hover */
+        .game-card:nth-child(even):hover {
+            border-color: rgba(255, 0, 127, 0.3);
+            box-shadow: 0 20px 40px rgba(255, 0, 127, 0.1);
+        }
+
+        /* Bildes/Ikones vieta */
+        .game-thumbnail {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0.2) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            position: relative;
+            border-bottom: 1px solid var(--border-color);
+            transition: transform 0.3s ease;
+        }
+
+        .game-card:hover .game-thumbnail {
+            transform: scale(1.05);
+        }
+
+        /* Informācija */
+        .game-info {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .game-info h2 {
+            margin: 0 0 20px 0;
+            font-size: 1.6rem;
+            font-family: 'Impact', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #fff;
+            transition: color 0.3s ease;
+        }
+
+        .game-card:hover h2 {
+            color: var(--pepe-green);
+        }
+        .game-card:nth-child(even):hover h2 {
+            color: var(--beast-pink);
+        }
+
+        /* Poga */
+        .play-btn {
+            margin-top: auto;
+            padding: 14px 0;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            color: #fff;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
             letter-spacing: 1px;
             transition: all 0.3s ease;
         }
 
-        .lang-btn:hover, .lang-btn.active {
-            background: #00ff66;
+        .game-card:hover .play-btn {
+            background: linear-gradient(135deg, var(--pepe-green), #00cc52);
             color: #000;
-            border-color: #00ff66;
-            box-shadow: 0 0 15px rgba(0, 255, 66, 0.4);
+            border-color: var(--pepe-green);
+            box-shadow: 0 5px 15px rgba(0, 255, 102, 0.2);
         }
 
-        header {
-            text-align: center;
-            margin-bottom: 50px;
+        .game-card:nth-child(even):hover .play-btn {
+            background: linear-gradient(135deg, var(--beast-pink), #e60072);
+            color: #fff;
+            border-color: var(--beast-pink);
+            box-shadow: 0 5px 15px rgba(255, 0, 127, 0.2);
         }
 
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            background: linear-gradient(90deg, #00ff66, #ff007f);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        p.subtitle {
-            font-family: 'Segoe UI', sans-serif;
-            color: #8a8d9b;
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            width: 100%;
-        }
-
-        .game-card {
-            background: rgba(20, 20, 27, 0.65);
-            border: 2px solid #1f202e;
-            border-radius: 16px;
-            overflow: hidden;
-            text-decoration: none;
-            color: #ffffff;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .game-card:hover {
-            transform: translateY(-5px);
-            border-color: #00ff66;
-        }
-
-        .game-thumbnail {
-            width: 100%;
-            height: 180px;
-            background: #13141f;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4.5rem;
-            border-bottom: 2px solid #1f202e;
-        }
-
-        .game-info {
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            font-family: 'Segoe UI', sans-serif;
-        }
-
-        .game-info h2 {
-            margin: 0 0 12px 0;
-            font-size: 1.5rem;
-            font-family: 'Impact', sans-serif;
-            text-transform: uppercase;
-        }
-
-        .play-btn {
-            margin-top: auto;
-            padding: 12px 0;
-            margin-top: 20px;
-            background: #1a1b26;
-            border: 1px solid #2a2b3d;
-            border-radius: 8px;
-            color: #00ff66;
-            text-align: center;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        @media (max-width: 600px) {
-            .games-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-            .game-thumbnail { height: 110px; font-size: 2.5rem; }
+        /* Adaptivitāte telefoniem */
+        @media (max-width: 680px) {
+            h1 { font-size: 3rem; }
+            p.subtitle { font-size: 0.9rem; letter-spacing: 2px; }
+            .games-grid { grid-template-columns: 1fr; gap: 20px; }
+            .game-thumbnail { height: 160px; font-size: 4rem; }
+            body { padding: 20px 15px; }
         }
     </style>
 </head>
