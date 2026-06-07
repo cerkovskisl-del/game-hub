@@ -340,44 +340,112 @@
             return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
 
-        // Korekta datu nolase caur publisko brīvpieejas YouTube API skaitītāju sistēmu
-        async function updateSubscribers() {
+        // Lokālais reģistrs, lai tīkla pārrāvumu gadījumā saglabātu pēdējos veiksmīgos datus
+        let cache = { pepe: 85, beast: 497000000 };
+
+        async function fetchWithTimeout(url, options = {}, timeout = 6000) {
+            const controller = new AbortController();
+            const id = setTimeout(() => controller.abort(), timeout);
             try {
-                // Nolasa MrBeast datus (UCX6OQ3DkcsbYNE6H8uQQuVA)
-                const resBeast = await fetch('https://yt-api.brayan3m.workers.dev/channel/UCX6OQ3DkcsbYNE6H8uQQuVA');
-                if (resBeast.ok) {
-                    const dataBeast = await resBeast.ok ? await resBeast.json() : null;
-                    if (dataBeast && dataBeast.subscribers) {
-                        document.getElementById('beast-subs').innerText = formatNumber(dataBeast.subscribers);
+                const response = await fetch(url, { ...options, signal: controller.signal });
+                clearTimeout(id);
+                return response;
+            } catch (e) {
+                clearTimeout(id);
+                throw e;
+            }
+        }
+
+        async function updateSubscribers() {
+            // --- MRBEAST DATU IEGŪŠANA ---
+            let beastUpdated = false;
+            
+            // 1. mēģinājums: Pamata API strādājošajam brayan3m workeram
+            try {
+                const res = await fetchWithTimeout('https://yt-api.brayan3m.workers.dev/channel/UCX6OQ3DkcsbYNE6H8uQQuVA');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data && data.subscribers) {
+                        cache.beast = parseInt(data.subscribers, 10);
+                        beastUpdated = true;
                     }
                 }
             } catch (e) {
-                console.log("Nevarēja sasniegt MrBeast API avotu, tiek saglabāta sākuma vērtība.");
+                console.warn("Primārais MrBeast API nepieejams, mēģina rezerves avotu...");
             }
 
+            // 2. mēģinājums (Rezerves): Ja pirmais neizdodas, izmanto neatkarīgu socialcounts alternatīvu caur citu starpnieku
+            if (!beastUpdated) {
+                try {
+                    const resAlternative = await fetchWithTimeout('https://api.codetabs.com/v1/proxy/?quest=https://api.socialcounts.org/youtube-live-subscriber-count/UCX6OQ3DkcsbYNE6H8uQQuVA');
+                    if (resAlternative.ok) {
+                        const dataAlt = await resAlternative.json();
+                        if (dataAlt && dataAlt.est_sub) {
+                            cache.beast = parseInt(dataAlt.est_sub, 10);
+                            beastUpdated = true;
+                        }
+                    }
+                } catch (e) {
+                    console.error("Visi MrBeast API avoti neatbild. Izmanto saglabātos datus.");
+                }
+            }
+
+            // --- PEPE DATU IEGŪŠANA ---
+            let pepeUpdated = false;
+
+            // 1. mēģinājums: Pamata meklēšanas API modulis
             try {
-                // Nolasa Pepe kanāla datus caur tās pašas sistēmas meklēšanas/ID moduli
-                const resPepe = await fetch('https://yt-api.brayan3m.workers.dev/search?q=PEPE_real_true');
+                const resPepe = await fetchWithTimeout('https://yt-api.brayan3m.workers.dev/search?q=PEPE_real_true');
                 if (resPepe.ok) {
                     const dataPepe = await resPepe.json();
                     if (dataPepe && dataPepe.channels && dataPepe.channels[0]) {
-                        const subspepe = dataPepe.channels[0].subscribers;
-                        if(subspepe) {
-                            document.getElementById('pepe-subs').innerText = formatNumber(subspepe);
+                        const subs = dataPepe.channels[0].subscribers;
+                        if (subs) {
+                            cache.pepe = parseInt(subs, 10);
+                            pepeUpdated = true;
                         }
                     }
                 }
             } catch (e) {
-                console.log("Nevarēja sasniegt Pepe API avotu, tiek saglabāta sākuma vērtība.");
+                console.warn("Primārais Pepe API nepieejams, pārslēdzas uz lapas analīzi...");
             }
+
+            // 2. mēģinājums (Rezerves): Lapas koda parsēšana caur alternatīvu CORS apiešanas starpnieku
+            if (!pepeUpdated) {
+                try {
+                    const resPepeAlt = await fetchWithTimeout('https://api.codetabs.com/v1/proxy/?quest=https://www.youtube.com/@PEPE_real_true');
+                    if (resPepeAlt.ok) {
+                        const htmlText = await resPepeAlt.text();
+                        const match = htmlText.match(/"subscriberCountText"\s*:\s*\{\s*"simpleText"\s*:\s*"([^"]+)"\}/) || 
+                                      htmlText.match(/"content"\s*:\s*"([^"]+)\s+subscribers"/i);
+                        if (match && match[1]) {
+                            let parsedNum = parseInt(match[1].replace(/[^0-9]/g, ''), 10);
+                            if (!isNaN(parsedNum) && parsedNum > 0) {
+                                cache.pepe = parsedNum;
+                                pepeUpdated = true;
+                            }
+                        }
+                    }
+                } catch (e) {
+                    console.error("Visi Pepe datu avoti nepieejami. Izmanto saglabātos datus.");
+                }
+            }
+
+            // Atjaunina datus ekrānā (neatkarīgi no tā, vai tie nākuši no jauna pieprasījuma vai kešatmiņas)
+            document.getElementById('beast-subs').innerText = formatNumber(cache.beast);
+            document.getElementById('pepe-subs').innerText = formatNumber(cache.pepe);
         }
 
         window.onload = function() {
             changeLanguage('en');
             
-            // Izpilda nolasīšanu uzreiz pēc ielādes un pēc tam ik pēc 15 sekundēm
+            // Uzreiz parāda bāzes datus, lai novērstu vizuālu tukšumu ielādes brīdī
+            document.getElementById('pepe-subs').innerText = formatNumber(cache.pepe);
+            document.getElementById('beast-subs').innerText = formatNumber(cache.beast);
+            
+            // Veic pieprasījumu un uztur ciklu ik pēc 30 sekundēm, lai nepārslogotu API limits
             updateSubscribers();
-            setInterval(updateSubscribers, 15000);
+            setInterval(updateSubscribers, 30000);
         };
     </script>
     <script defer src="/_vercel/insights/script.js"></script>
