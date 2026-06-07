@@ -230,13 +230,13 @@
     <div class="live-counter-container">
         <div class="counter-box">
             <div class="counter-name pepe-color"><span class="live-dot"></span>PEPE (@PEPE_real_true)</div>
-            <div id="pepe-subs" class="counter-number pepe-color">...</div>
+            <div id="pepe-subs" class="counter-number pepe-color">85</div>
             <a href="https://www.youtube.com/@PEPE_real_true" target="_blank" class="counter-link pepe-color">👉 View Channel</a>
         </div>
         <div class="counter-vs">VS</div>
         <div class="counter-box">
             <div class="counter-name beast-color"><span class="live-dot"></span>MRBEAST</div>
-            <div id="beast-subs" class="counter-number beast-color">...</div>
+            <div id="beast-subs" class="counter-number beast-color">497,000,000</div>
             <a href="https://www.youtube.com/@MrBeast" target="_blank" class="counter-link beast-color">👉 View Channel</a>
         </div>
     </div>
@@ -291,7 +291,7 @@
                 g1_title: "Pepe Army vs Mr Beast", g1_desc: "Aizraujoša cīņas un stratēģijas spēle starp Pepe armiju un Mr Beast.",
                 g2_title: "Pepe vs MrBeast", g2_desc: "Pirmā versija dinamiskajai Pepe un Mr Beast konfrontācijai.",
                 g3_title: "Pepe Platformer", g3_desc: "Klasiska platformera stila spēle, kurā jāvada Pepe cauri dažādiem šķēršļiem un līmeņiem.",
-                g4_title: "Flappy Pepe Beast Escape", g4_desc: "Klasiskā \"Flappy\" stila spēle, kurā Pepe jāmēģina izbēgt un izvairīties no šķēršļiem.",
+                g4_title: "Flappy Pepe Beast Escape", g4_desc: "Klasiskā \"Flappy\" stila spēle, kurā Pepe jāmēģina izbēgt un izvairīтися no šķēršļiem.",
                 g5_title: "Pepe Memory", g5_desc: "Klasiska atmiņas spēle (Memory), kurā jāatrod vienādie attēlu pāri pēc iespējas ātrāk."
             },
             en: {
@@ -340,59 +340,51 @@
             return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
 
-        // Tīra datu plūsma no socialcounts.org bez ierobežojumiem
-        function startLiveStream() {
+        // Alternatīvs datu ieguves veids, kas izmanto stabilu atvērto CORS starpnieku
+        async function fetchAlternativeData() {
             try {
-                // Atver tiešu plūsmu uz norādīto kanālu
-                const stream = new EventSource('https://api.socialcounts.org/youtube-live-subscriber-count/UCX6OQ3DkcsbYNE6H8uQQuVA/stream');
-                
-                stream.onmessage = function(event) {
-                    const parsedData = JSON.parse(event.data);
-                    if (parsedData && parsedData.est_sub) {
-                        // Izvelk un attēlo reālo skaitli tieši no socialcounts.org lapas plūsmas
-                        document.getElementById('beast-subs').innerText = formatNumber(parsedData.est_sub);
-                    }
-                };
-
-                stream.onerror = function() {
-                    stream.close();
-                    // Atjauno savienojumu kļūdas gadījumā pēc 3 sekundēm
-                    setTimeout(startLiveStream, 3000);
-                };
-            } catch (e) {
-                console.error("Savienojuma kļūda.");
-            }
-        }
-
-        // Rezerves funkcija Pepe datu iegūšanai
-        async function fetchPepeData() {
-            try {
-                const res = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://www.youtube.com/@PEPE_real_true'));
-                const data = await res.json();
-                const html = data.contents;
-                const match = html.match(/"subscriberCountText"\s*:\s*\{\s*"simpleText"\s*:\s*"([^"]+)"\}/) || 
-                              html.match(/"content"\s*:\s*"([^"]+)\s+subscribers"/i);
-                if (match && match[1]) {
-                    let textClean = match[1].replace(/[^0-9]/g, '');
-                    let parsed = parseInt(textClean, 10);
-                    if (!isNaN(parsed)) {
-                        document.getElementById('pepe-subs').innerText = formatNumber(parsed);
+                // Izmanto alternatīvu uzticamu JSON starpnieku, lai iegūtu datus no socialcounts tiešā API
+                const url = 'https://api.allorigins.win/get?url=' + encodeURIComponent('https://api.socialcounts.org/youtube-live-subscriber-count/UCX6OQ3DkcsbYNE6H8uQQuVA');
+                const response = await fetch(url);
+                if (response.ok) {
+                    const data = await response.json();
+                    const parsed = JSON.parse(data.contents);
+                    if (parsed && parsed.est_sub) {
+                        document.getElementById('beast-subs').innerText = formatNumber(parsed.est_sub);
                     }
                 }
-            } catch (e) {
-                console.error("Nevar ielasīt Pepe datus");
+            } catch (error) {
+                console.log("Aizture MrBeast datu ielādē.");
+            }
+
+            try {
+                // Nolasa Pepe kanāla publiskos datus caur alternatīvu datu plūsmu
+                const urlPepe = 'https://api.allorigins.win/get?url=' + encodeURIComponent('https://www.youtube.com/@PEPE_real_true');
+                const responsePepe = await fetch(urlPepe);
+                if (responsePepe.ok) {
+                    const dataPepe = await responsePepe.json();
+                    const html = dataPepe.contents;
+                    const match = html.match(/"subscriberCountText"\s*:\s*\{\s*"simpleText"\s*:\s*"([^"]+)"\}/) || 
+                                  html.match(/"content"\s*:\s*"([^"]+)\s+subscribers"/i);
+                    if (match && match[1]) {
+                        let textClean = match[1].replace(/[^0-9]/g, '');
+                        let num = parseInt(textClean, 10);
+                        if (!isNaN(num)) {
+                            document.getElementById('pepe-subs').innerText = formatNumber(num);
+                        }
+                    }
+                }
+            } catch (error) {
+                console.log("Aizture Pepe datu ielādē.");
             }
         }
 
         window.onload = function() {
             changeLanguage('en');
             
-            // Palaiž tiešo reāllaika plūsmu
-            startLiveStream();
-            fetchPepeData();
-            
-            // Atjauno Pepe datus ik pēc 30 sekundēm
-            setInterval(fetchPepeData, 30000);
+            // Izpilda datu pieprasījumu uzreiz un pēc tam regulāri fonā
+            fetchAlternativeData();
+            setInterval(fetchAlternativeData, 20000);
         };
     </script>
     <script defer src="/_vercel/insights/script.js"></script>
