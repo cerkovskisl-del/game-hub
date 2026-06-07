@@ -321,7 +321,7 @@
     <div class="live-counter-container">
         <div class="counter-box">
             <div class="counter-name pepe-color"><span class="live-dot"></span>PEPE (@PEPE_real_true)</div>
-            <div id="pepe-subs" class="counter-number pepe-color">55</div>
+            <div id="pepe-subs" class="counter-number pepe-color">...</div>
             <a href="https://www.youtube.com/@PEPE_real_true" target="_blank" class="counter-link pepe-color">👉 View Channel</a>
         </div>
         <div class="counter-vs">VS</div>
@@ -387,7 +387,7 @@
                 title: "Pepe vs MrBeast", subtitle: "Visas spēles vienuviet", play: "Spēlēt",
                 g1_title: "Pepe Army vs Mr Beast", g1_desc: "Aizraujoša cīņas un stratēģijas spēle starp Pepe armiju un Mr Beast.",
                 g2_title: "Pepe vs MrBeast", g2_desc: "Pirmā versija dinamiskajai Pepe un Mr Beast konfrontācijai.",
-                g3_title: "Pepe Platformer", g3_desc: "Klasiska platformera stila spēle, kurā jāvada Pepe cauri dažādiem šķēršhlis un līmeņiem.",
+                g3_title: "Pepe Platformer", g3_desc: "Klasiska platformera stila spēle, kurā jāvada Pepe cauri dažādiem šķēršļiem un līmeņiem.",
                 g4_title: "Flappy Pepe Beast Escape", g4_desc: "Klasiskā \"Flappy\" stila spēle, kurā Pepe jāmēģina izbēgt un izvairīties no šķēršļiem.",
                 g5_title: "Pepe Memory", g5_desc: "Klasiska atmiņas spēle (Memory), kurā jāatrod vienādie attēlu pāri pēc iespējas ātrāk."
             },
@@ -440,11 +440,43 @@
             return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
 
-        // SĀKUMA BĀZES DATI TAVAM KANĀLAM UN MRBEAST
-        let pepeSubs = 55; // Pašreizējais precīzais skaitlis no tava kanāla
-        let beastSubs = 345120680; // Bāzes skaitlis priekš MrBeast
+        // --- INTELEKTUĀLĀ DZINĒJA MAINĪGIE ---
+        let currentPepeSubs = 0;   // Tas, ko šobrīd rāda uz ekrāna
+        let targetPepeSubs = 0;    // Īstais skaitlis, kas tikko klusi nolasīts no YouTube fona skenēšanas
+        let beastSubs = 345120680; // Sākuma punkts MrBeast
 
-        // FUNKCIJA, KAS IEGŪST MRBEAST REĀLOS DATUS NO TĪMEKĻA UN MAINA TOS DZĪVAJĀ
+        // 1. DZĪVĀ FUNKCIJA: Klusi fonā nolasa TIKAI REĀLOS datus no tava YouTube kanāla
+        async function fetchRealPepeSubs() {
+            try {
+                // Izmantojam stabilu CORS proxy, lai piekļūtu tavai publiskajai YouTube lapai tiešsaistē
+                const response = await fetch('https://corsproxy.io/?' + encodeURIComponent('https://www.youtube.com/@PEPE_real_true'));
+                const html = await response.text();
+                
+                // Atrodam precīzu YouTube mainīgo, kurā glabājas abonentu skaits
+                const match = html.match(/"subscriberCountText":\s*\{\s*"simpleText":\s*"([^"]+)"\}/) || 
+                              html.match(/"[^"]*subscriber[^"]*":\s*"([^"]+)\s+subscribers"/i);
+                
+                if (match && match[1]) {
+                    // Pārvēršam tekstu (piemēram "55 subscribers") tīrā ciparā -> 55
+                    const countText = match[1].replace(/[^0-9]/g, '');
+                    const extractedSubs = parseInt(countText, 10);
+                    
+                    if (!isNaN(extractedSubs) && extractedSubs > 0) {
+                        targetPepeSubs = extractedSubs; // Iestatām jauno reālo mērķi
+                        
+                        // Ja lapa nupat tika atvērta, uzreiz parādām īsto skaitli, lai nav jārāda nulle
+                        if (currentPepeSubs === 0) {
+                            currentPepeSubs = targetPepeSubs;
+                            document.getElementById('pepe-subs').innerText = formatNumber(currentPepeSubs);
+                        }
+                    }
+                }
+            } catch (error) {
+                console.log("YouTube fona pārbaude neizdevās, mēģinās atkal pēc brīža.");
+            }
+        }
+
+        // 2. FUNKCIJA MRBEAST DATIEM
         async function fetchInitialBeastData() {
             try {
                 const response = await fetch('https://api.socialcounts.org/youtube-live-subscriber-count/UCX6OQ3DkcsbYNE6H8uQQuVA');
@@ -454,31 +486,51 @@
                     document.getElementById('beast-subs').innerText = formatNumber(beastSubs);
                 }
             } catch (error) {
-                console.log("Neizdevās ielādēt MrBeast API, tiek izmantota bāzes vērtība.");
+                console.log("Neizdevās sasniegt MrBeast API.");
             }
         }
 
-        // DYNAMISKĀ REĀLLAIKA SKAITĪŠANA (Katru sekundi skaitļi "dzīvi" kustas)
+        // 3. REĀLLAIKA SEKUNDES DZINĒJS
         function runLiveCounter() {
             setInterval(() => {
-                // MrBeast aug par 1-3 abonentiem sekundē
+                // MrBeast aug dabiski (viņam jauni subnāca klāt katru sekundi)
                 beastSubs += Math.floor(Math.random() * 3) + 1;
-                
-                // Tava Pepe armija nepārtraukti aug (Pieskaitām reālistisku "dzīvo" animāciju, lai skaitītājs visu laiku kustas)
-                if (Math.random() > 0.7) { 
-                    pepeSubs += 1; // Ik pa laikam pieskaita +1 jaunu Pepe kareivi
-                }
-
                 document.getElementById('beast-subs').innerText = formatNumber(beastSubs);
-                document.getElementById('pepe-subs').innerText = formatNumber(pepeSubs);
-            }, 1000);
+
+                // REĀLĀ CILVĒKA GLUDAIS DETEKTORS TAVAM KANĀLAM:
+                // Ja fona pārbaude atklāja, ka YouTube reāli nācis klāt jauns cilvēks (piem. target kļuvis par 56),
+                // JavaScript dzinējs tieši šajā sekundē gludi pieskaitīs +1, lai lapa neuzrautos un neraustītos.
+                if (currentPepeSubs < targetPepeSubs) {
+                    currentPepeSubs++;
+                    document.getElementById('pepe-subs').innerText = formatNumber(currentPepeSubs);
+                } 
+                // Ja lapa tikko ieslēgta vai kāds ir atteicies no abonēšanas, izlīdzinām skaitli
+                else if (currentPepeSubs > targetPepeSubs && targetPepeSubs > 0) {
+                    currentPepeSubs = targetPepeSubs;
+                    document.getElementById('pepe-subs').innerText = formatNumber(currentPepeSubs);
+                }
+            }, 1000); // Šis izpildās reizi sekundē!
         }
 
-        // Palaiž visu, kad lapa ielādējas
+        // Lapas ielāde
         window.onload = async function() {
             changeLanguage('en');
-            await fetchInitialBeastData(); // Vispirms mēģina paņemt reālo skaitli MrBeastam
-            runLiveCounter(); // Palaiž dzīvo skaitīšanu sekundi pēc sekundes
+            
+            // 1. Ielādējam MrBeast sākumu
+            await fetchInitialBeastData();
+            
+            // 2. Ielādējam TIKAI ĪSTOS datus no tava YouTube kanāla
+            await fetchRealPepeSubs();
+            
+            // Gadījumā, ja YouTube neatbildēja uzreiz, iestatām vismaz bāzi, lai nav tukšums
+            if (currentPepeSubs === 0) { currentPepeSubs = 55; targetPepeSubs = 55; }
+            
+            // 3. Palaižam sekunžu dzinēju
+            runLiveCounter();
+
+            // Fonā nepārtraukti, klusi skenējam izmaiņas (bez lapas pārlādes)
+            setInterval(fetchRealPepeSubs, 8000); // Ik pēc 8 sekundēm YouTube pārbaude
+            setInterval(fetchInitialBeastData, 12000);
         };
     </script>
 
