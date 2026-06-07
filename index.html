@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="lv">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -256,7 +256,7 @@
                 font-size: 0.8rem;
                 line-height: 1.4;
                 display: -webkit-box;
-                -webkit-line-clamp: 3; /* Neļauj tekstam izstiept kartītes */
+                -webkit-line-clamp: 3;
                 -webkit-box-orient: vertical;
                 overflow: hidden;
             }
@@ -273,14 +273,14 @@
 <body>
 
     <div class="lang-switcher">
-        <button class="lang-btn active" onclick="changeLanguage('lv')">LV</button>
-        <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
-        <button class="lang-btn" onclick="changeLanguage('ru')">RU</button>
+        <button id="btn-lv" class="lang-btn" onclick="changeLanguage('lv', event)">LV</button>
+        <button id="btn-en" class="lang-btn active" onclick="changeLanguage('en', event)">EN</button>
+        <button id="btn-ru" class="lang-btn" onclick="changeLanguage('ru', event)">RU</button>
     </div>
 
     <header>
         <h1 id="main-title">Pepe vs MrBeast</h1>
-        <p id="main-subtitle" class="subtitle">Visas spēles vienuviet</p>
+        <p id="main-subtitle" class="subtitle">All games in one place</p>
     </header>
 
     <div class="games-grid">
@@ -289,8 +289,8 @@
             <div class="game-thumbnail">🪖</div>
             <div class="game-info">
                 <h2 id="g1-title">Pepe Army vs Mr Beast</h2>
-                <p id="g1-desc">Aizraujoša cīņas un stratēģijas spēle starp Pepe armiju un Mr Beast.</p>
-                <div class="play-btn class-play-btn">Spēlēt</div>
+                <p id="g1-desc">An exciting battle and strategy game between the Pepe army and Mr Beast.</p>
+                <div class="play-btn class-play-btn">Play</div>
             </div>
         </a>
 
@@ -298,8 +298,8 @@
             <div class="game-thumbnail">⚔️</div>
             <div class="game-info">
                 <h2 id="g2-title">Pepe vs MrBeast</h2>
-                <p id="g2-desc">Pirmā versija dinamiskajai Pepe un Mr Beast konfrontācijai.</p>
-                <div class="play-btn class-play-btn">Spēlēt</div>
+                <p id="g2-desc">The first version of the dynamic confrontation between Pepe and Mr Beast.</p>
+                <div class="play-btn class-play-btn">Play</div>
             </div>
         </a>
 
@@ -307,8 +307,8 @@
             <div class="game-thumbnail">🏃‍♂️</div>
             <div class="game-info">
                 <h2 id="g3-title">Pepe Platformer</h2>
-                <p id="g3-desc">Klasiska platformera stila spēle, kurā jāvada Pepe cauri dažādiem šķēršļiem un līmeņiem.</p>
-                <div class="play-btn class-play-btn">Spēlēt</div>
+                <p id="g3-desc">A classic platformer-style game where you guide Pepe through various obstacles and levels.</p>
+                <div class="play-btn class-play-btn">Play</div>
             </div>
         </a>
 
@@ -316,8 +316,8 @@
             <div class="game-thumbnail">🐦</div>
             <div class="game-info">
                 <h2 id="g4-title">Flappy Pepe Beast Escape</h2>
-                <p id="g4-desc">Klasiskā "Flappy" stila spēle, kurā Pepe jāmēģina izbēgt un izvairīties no šķēršļiem.</p>
-                <div class="play-btn class-play-btn">Spēlēt</div>
+                <p id="g4-desc">A classic "Flappy" style game where Pepe must escape and avoid obstacles.</p>
+                <div class="play-btn class-play-btn">Play</div>
             </div>
         </a>
 
@@ -325,8 +325,8 @@
             <div class="game-thumbnail">🧠</div>
             <div class="game-info">
                 <h2 id="g5-title">Pepe Memory</h2>
-                <p id="g5-desc">Klasiska atmiņas spēle (Memory), kurā jāatrod vienādie attēlu pāri pēc iespējas ātrāk.</p>
-                <div class="play-btn class-play-btn">Spēlēt</div>
+                <p id="g5-desc">A classic memory game where you have to find matching pairs of images as fast as possible.</p>
+                <div class="play-btn class-play-btn">Play</div>
             </div>
         </a>
 
@@ -360,7 +360,7 @@
             }
         };
 
-        function changeLanguage(lang) {
+        function changeLanguage(lang, event) {
             document.getElementById('main-title').innerText = translations[lang].title;
             document.getElementById('main-subtitle').innerText = translations[lang].subtitle;
             document.getElementById('g1-title').innerText = translations[lang].g1_title;
@@ -377,10 +377,21 @@
             const playButtons = document.querySelectorAll('.class-play-btn');
             playButtons.forEach(btn => { btn.innerText = translations[lang].play; });
 
+            // Nomaina pogu aktīvos stilus
             const buttons = document.querySelectorAll('.lang-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            
+            if (event) {
+                event.target.classList.add('active');
+            } else {
+                document.getElementById('btn-' + lang).classList.add('active');
+            }
         }
+
+        // Šī rindiņa automātiski ieslēdz angļu valodu, kad lapa tiek ielādēta
+        window.onload = function() {
+            changeLanguage('en');
+        };
     </script>
 
     <script defer src="/_vercel/insights/script.js"></script>
