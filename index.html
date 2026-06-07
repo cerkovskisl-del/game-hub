@@ -321,7 +321,7 @@
     <div class="live-counter-container">
         <div class="counter-box">
             <div class="counter-name pepe-color"><span class="live-dot"></span>PEPE (@PEPE_real_true)</div>
-            <div id="pepe-subs" class="counter-number pepe-color">...</div>
+            <div id="pepe-subs" class="counter-number pepe-color">85</div>
             <a href="https://www.youtube.com/@PEPE_real_true" target="_blank" class="counter-link pepe-color">👉 View Channel</a>
         </div>
         <div class="counter-vs">VS</div>
@@ -440,46 +440,31 @@
             return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
 
-        // --- ATJAUNINĀTAIS STRĀDĀJOŠAIS DZINĒJS ---
-        let currentPepeSubs = 75;  // Drošības sākuma skaitlis (ja nu internets bremzē)
-        let targetPepeSubs = 75;   
+        // --- PRECIZĒTIE REĀLĀ LAIKA MAINĪGIE PRIEKŠ 85 SUB ---
+        let currentPepeSubs = 85;  // Tava pašreizējā precīzā bāze
+        let targetPepeSubs = 85;   
         let beastSubs = 345120680;
 
-        // Jaunā funkcija, kas izmanto atvērtu datu API priekš YouTube skrāpēšanas
+        // Fona skeneris (nolasa jaunumus no YouTube)
         async function fetchRealPepeSubs() {
             try {
-                // Izmantojam citu, stabilāku datu kanālu apejai
                 const response = await fetch('https://api.codetabs.com/v1/proxy/?quest=' + encodeURIComponent('https://www.youtube.com/@PEPE_real_true'));
                 const html = await response.text();
                 
-                // Meklējam YouTube iekšējo sub_count kodu
                 const match = html.match(/"subscriberCountText"\s*:\s*\{\s*"simpleText"\s*:\s*"([^"]+)"\}/) || 
                               html.match(/"content"\s*:\s*"([^"]+)\s+subscribers"/i) ||
                               html.match(/([0-9.,KMB]+)\s*subscribers/i);
                 
                 if (match && match[1]) {
-                    // Izvelkam tikai ciparus
                     let textClean = match[1].replace(/[^0-9]/g, '');
                     let extractedSubs = parseInt(textClean, 10);
                     
-                    if (!isNaN(extractedSubs) && extractedSubs > 0) {
-                        targetPepeSubs = extractedSubs;
-                        // Ja lapa tikko ielādēta, uzreiz parādām īsto ciparu
-                        if (document.getElementById('pepe-subs').innerText === "...") {
-                            currentPepeSubs = targetPepeSubs;
-                            document.getElementById('pepe-subs').innerText = formatNumber(currentPepeSubs);
-                        }
-                    }
-                } else {
-                    // Ja YouTube lapa neatbildēja kā nākas, mēģinām sekundāro meklēšanu visā tekstā
-                    const fallbackMatch = html.match(/"label"\s*:\s*"([^"]*)\s+subscribers"/i);
-                    if (fallbackMatch && fallbackMatch[1]) {
-                        let extractedSubs = parseInt(fallbackMatch[1].replace(/[^0-9]/g, ''), 10);
-                        if (!isNaN(extractedSubs)) { targetPepeSubs = extractedSubs; }
+                    if (!isNaN(extractedSubs) && extractedSubs >= 85) {
+                        targetPepeSubs = extractedSubs; // Atjauninām mērķi tikai tad, ja tas ir loģisks
                     }
                 }
             } catch (error) {
-                console.log("Neizdevās sasniegt reālos Pepe datus, paliek bāzes režīms.");
+                console.log("Fona pārbaude neizdevās, paliek uz pēdējo zināmo (85+).");
             }
         }
 
@@ -496,22 +481,20 @@
             }
         }
 
+        // Sekunžu dzinējs, kas pārbauda datus katru sekundi
         function runLiveCounter() {
-            // Ja dati vēl nav atnākuši, ierakstām pagaidu skaitli lai nav trīs punkti
-            if(document.getElementById('pepe-subs').innerText === "...") {
-                document.getElementById('pepe-subs').innerText = formatNumber(currentPepeSubs);
-            }
+            document.getElementById('pepe-subs').innerText = formatNumber(currentPepeSubs);
 
             setInterval(() => {
-                // MrBeast skaitītāja kustība
+                // MrBeast animācija
                 beastSubs += Math.floor(Math.random() * 3) + 1;
                 document.getElementById('beast-subs').innerText = formatNumber(beastSubs);
 
-                // Reālo cilvēku pieskaitīšana
+                // Reāllaika pieskaitīšana tavam kanālam
                 if (currentPepeSubs < targetPepeSubs) {
                     currentPepeSubs++;
                     document.getElementById('pepe-subs').innerText = formatNumber(currentPepeSubs);
-                } else if (currentPepeSubs > targetPepeSubs && targetPepeSubs > 0) {
+                } else if (currentPepeSubs > targetPepeSubs && targetPepeSubs >= 85) {
                     currentPepeSubs = targetPepeSubs;
                     document.getElementById('pepe-subs').innerText = formatNumber(currentPepeSubs);
                 }
@@ -521,16 +504,16 @@
         window.onload = async function() {
             changeLanguage('en');
             
-            // Palaižam skaitītāju uzreiz ar bāzes skaitli, lai nerēgotos punkti "..."
+            // Palaižam skaitītāju uzreiz ar 85, lai lapa uzreiz strādā
             runLiveCounter();
             
-            // Fonā klusi sākam prasīt īstos datus
+            // Fonā klusi sākam prasīt YouTube serverim, vai nav jaunu subu
             await fetchInitialBeastData();
             await fetchRealPepeSubs();
             
-            // Ik pēc laika atjaunojam reālos datus fonā
-            setInterval(fetchRealPepeSubs, 10000); 
-            setInterval(fetchInitialBeastData, 15000);
+            // Cikli fonam
+            setInterval(fetchRealPepeSubs, 7000); 
+            setInterval(fetchInitialBeastData, 12000);
         };
     </script>
 
