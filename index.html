@@ -53,7 +53,7 @@
 
         header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 40px;
             position: relative;
         }
 
@@ -75,6 +75,56 @@
             font-size: 1.2rem;
             text-transform: uppercase;
             letter-spacing: 2px;
+        }
+
+        /* REĀLLAIKA LIVE SKAITĪTĀJA STILS */
+        .live-counter-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: rgba(16, 17, 26, 0.8);
+            border: 2px solid #232436;
+            border-radius: 20px;
+            padding: 20px;
+            max-width: 800px;
+            width: 100%;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .counter-box {
+            text-align: center;
+            flex: 1;
+        }
+
+        .counter-vs {
+            font-size: 2rem;
+            color: #5d6175;
+            padding: 0 20px;
+        }
+
+        .counter-name {
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .pepe-color {
+            color: #00ff66;
+            text-shadow: 0 0 10px rgba(0, 255, 66, 0.3);
+        }
+
+        .beast-color {
+            color: #ff007f;
+            text-shadow: 0 0 10px rgba(255, 0, 127, 0.3);
+        }
+
+        .counter-number {
+            font-size: 2.5rem;
+            font-variant-numeric: tabular-nums; /* Neļauj cipariem "lēkāt", kad tie mainās */
+            letter-spacing: 1px;
         }
 
         /* Spēļu izkārtojuma režģis */
@@ -101,20 +151,17 @@
             position: relative;
         }
 
-        /* Dinamiskie neona spīdumi uz peli */
         .game-card:hover {
             transform: translateY(-10px) scale(1.02);
             border-color: #00ff66;
             box-shadow: 0 15px 30px rgba(0, 255, 66, 0.2), inset 0 0 15px rgba(0, 255, 66, 0.1);
         }
 
-        /* Katrai otrai kartītei iedodam MrBeast rozā spīdumu krasākai variācijai */
         .game-card:nth-child(even):hover {
             border-color: #ff007f;
             box-shadow: 0 15px 30px rgba(255, 0, 127, 0.2), inset 0 0 15px rgba(255, 0, 127, 0.1);
         }
 
-        /* Spēļu ikonu logi ar animētu fonu */
         .game-thumbnail {
             width: 100%;
             height: 180px;
@@ -140,7 +187,6 @@
             background: linear-gradient(135deg, #3a1327 0%, #13141f 100%);
         }
 
-        /* Informācijas sadaļa kartītē */
         .game-info {
             padding: 25px;
             display: flex;
@@ -159,12 +205,8 @@
             transition: color 0.3s;
         }
 
-        .game-card:hover .game-info h2 {
-            color: #00ff66;
-        }
-        .game-card:nth-child(even):hover .game-info h2 {
-            color: #ff007f;
-        }
+        .game-card:hover .game-info h2 { color: #00ff66; }
+        .game-card:nth-child(even):hover .game-info h2 { color: #ff007f; }
 
         .game-info p {
             margin: 0;
@@ -173,7 +215,6 @@
             line-height: 1.6;
         }
 
-        /* Krutā spēļu poga */
         .play-btn {
             margin-top: auto;
             padding: 12px 0;
@@ -197,10 +238,7 @@
             box-shadow: 0 0 15px rgba(0, 255, 66, 0.4);
         }
 
-        .game-card:nth-child(even) .play-btn {
-            color: #ff007f;
-        }
-
+        .game-card:nth-child(even) .play-btn { color: #ff007f; }
         .game-card:nth-child(even):hover .play-btn {
             background: #ff007f;
             color: #ffffff;
@@ -208,50 +246,25 @@
             box-shadow: 0 0 15px rgba(255, 0, 127, 0.4);
         }
 
-        /* RESPONSĪVAIS DIZAINS TELEFONIEM (2 rindā un optimizēts) */
+        /* RESPONSĪVAIS DIZAINS TELEFONIEM (2 rindā) */
         @media (max-width: 600px) {
-            body {
-                padding: 20px 12px;
-            }
-            h1 {
-                font-size: 2rem;
-                letter-spacing: 1px;
-            }
-            p.subtitle {
-                font-size: 0.85rem;
-                letter-spacing: 1px;
-            }
-            .lang-switcher {
-                justify-content: center;
-                margin-bottom: 25px;
-            }
+            body { padding: 20px 12px; }
+            h1 { font-size: 2rem; letter-spacing: 1px; }
+            p.subtitle { font-size: 0.85rem; letter-spacing: 1px; }
+            .lang-switcher { justify-content: center; margin-bottom: 25px; }
             
-            .games-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-            }
+            /* Telefona skaitītāja izmēri */
+            .live-counter-container { padding: 12px; margin-bottom: 30px; }
+            .counter-name { font-size: 0.9rem; }
+            .counter-number { font-size: 1.3rem; }
+            .counter-vs { font-size: 1.1rem; padding: 0 5px; }
 
-            .game-card {
-                border-radius: 12px;
-            }
-
-            .game-thumbnail {
-                height: 110px;
-                font-size: 2.5rem;
-            }
-            .game-card:hover .game-thumbnail {
-                font-size: 2.7rem;
-            }
-
-            .game-info {
-                padding: 12px;
-            }
-
-            .game-info h2 {
-                font-size: 1.1rem;
-                margin-bottom: 6px;
-            }
-
+            .games-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .game-card { border-radius: 12px; }
+            .game-thumbnail { height: 110px; font-size: 2.5rem; }
+            .game-card:hover .game-thumbnail { font-size: 2.7rem; }
+            .game-info { padding: 12px; }
+            .game-info h2 { font-size: 1.1rem; margin-bottom: 6px; }
             .game-info p {
                 font-size: 0.8rem;
                 line-height: 1.4;
@@ -260,13 +273,7 @@
                 -webkit-box-orient: vertical;
                 overflow: hidden;
             }
-
-            .play-btn {
-                font-size: 0.8rem;
-                padding: 8px 0;
-                margin-top: 12px;
-                border-radius: 6px;
-            }
+            .play-btn { font-size: 0.8rem; padding: 8px 0; margin-top: 12px; border-radius: 6px; }
         }
     </style>
 </head>
@@ -282,6 +289,18 @@
         <h1 id="main-title">Pepe vs MrBeast</h1>
         <p id="main-subtitle" class="subtitle">All games in one place</p>
     </header>
+
+    <div class="live-counter-container">
+        <div class="counter-box">
+            <div class="counter-name pepe-color">PEPE ARMY</div>
+            <div id="pepe-subs" class="counter-number pepe-color">69,420,105</div>
+        </div>
+        <div class="counter-vs">VS</div>
+        <div class="counter-box">
+            <div class="counter-name beast-color">MRBEAST SUBS</div>
+            <div id="beast-subs" class="counter-number beast-color">345,120,680</div>
+        </div>
+    </div>
 
     <div class="games-grid">
 
@@ -377,7 +396,6 @@
             const playButtons = document.querySelectorAll('.class-play-btn');
             playButtons.forEach(btn => { btn.innerText = translations[lang].play; });
 
-            // Nomaina pogu aktīvos stilus
             const buttons = document.querySelectorAll('.lang-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             
@@ -388,9 +406,32 @@
             }
         }
 
-        // Šī rindiņa automātiski ieslēdz angļu valodu, kad lapa tiek ielādēta
+        // SĀKOTNĒJIE SKAITĻI (Sākuma vērtības skaitītājam)
+        let pepeSubs = 69420105;
+        let beastSubs = 345120680;
+
+        // Funkcija, kas smuki formatē ciparus (piemēram, 1234567 pārvērš par 1,234,567)
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        // REĀLLAIKA SKAITĪTĀJA LOGIKA
+        function startLiveCounter() {
+            setInterval(() => {
+                // Katru sekundi pieskaita nejaušu skaitu (Pepe aug nedaudz ātrāk spēles intrigas dēļ)
+                pepeSubs += Math.floor(Math.random() * 4) + 2;   // Pieskaita +2 līdz +5
+                beastSubs += Math.floor(Math.random() * 3) + 1;  // Pieskaita +1 līdz +3
+
+                // Atjaunina ciparus ekrānā ar neona formātu
+                document.getElementById('pepe-subs').innerText = formatNumber(pepeSubs);
+                document.getElementById('beast-subs').innerText = formatNumber(beastSubs);
+            }, 1000); // Darbojas reizi sekundē (1000ms)
+        }
+
+        // Palaiž visu, kad lapa ielādējas
         window.onload = function() {
             changeLanguage('en');
+            startLiveCounter();
         };
     </script>
 
