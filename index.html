@@ -230,13 +230,13 @@
     <div class="live-counter-container">
         <div class="counter-box">
             <div class="counter-name pepe-color"><span class="live-dot"></span>PEPE (@PEPE_real_true)</div>
-            <div id="pepe-subs" class="counter-number pepe-color">0</div>
+            <div id="pepe-subs" class="counter-number pepe-color">Loading...</div>
             <a href="https://www.youtube.com/@PEPE_real_true" target="_blank" class="counter-link pepe-color">👉 View Channel</a>
         </div>
         <div class="counter-vs">VS</div>
         <div class="counter-box">
             <div class="counter-name beast-color"><span class="live-dot"></span>MRBEAST</div>
-            <div id="beast-subs" class="counter-number beast-color">0</div>
+            <div id="beast-subs" class="counter-number beast-color">Loading...</div>
             <a href="https://www.youtube.com/@MrBeast" target="_blank" class="counter-link beast-color">👉 View Channel</a>
         </div>
     </div>
@@ -342,20 +342,23 @@
 
         async function fetchLiveSocialCounts() {
             try {
-                const response = await fetch('https://api.codetabs.com/v1/proxy/?quest=' + encodeURIComponent('https://api.socialcounts.org/youtube-live-subscriber-count/UCX6OQ3DkcsbYNE6H8uQQuVA'));
+                // Izmanto publisko allorigins proxy, lai apietu pārlūkprogrammas CORS bloķēšanu
+                const response = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://api.socialcounts.org/youtube-live-subscriber-count/UCX6OQ3DkcsbYNE6H8uQQuVA'));
                 const data = await response.json();
-                if (data && data.est_sub) {
-                    document.getElementById('beast-subs').innerText = formatNumber(data.est_sub);
+                const jsonData = JSON.parse(data.contents);
+                if (jsonData && jsonData.est_sub) {
+                    document.getElementById('beast-subs').innerText = formatNumber(jsonData.est_sub);
                 }
             } catch (error) {
-                console.error(error);
+                console.error("Kļūda ielādējot MrBeast datus:", error);
             }
         }
 
         async function fetchRealPepeSubs() {
             try {
-                const response = await fetch('https://api.codetabs.com/v1/proxy/?quest=' + encodeURIComponent('https://www.youtube.com/@PEPE_real_true'));
-                const html = await response.text();
+                const response = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://www.youtube.com/@PEPE_real_true'));
+                const data = await response.json();
+                const html = data.contents;
                 const match = html.match(/"subscriberCountText"\s*:\s*\{\s*"simpleText"\s*:\s*"([^"]+)"\}/) || 
                               html.match(/"content"\s*:\s*"([^"]+)\s+subscribers"/i) ||
                               html.match(/([0-9.,KMB]+)\s*subscribers/i);
@@ -365,7 +368,7 @@
                     document.getElementById('pepe-subs').innerText = formatNumber(parseInt(textClean, 10));
                 }
             } catch (error) {
-                console.error(error);
+                console.error("Kļūda ielādējot Pepe datus:", error);
             }
         }
 
@@ -375,8 +378,9 @@
             await fetchLiveSocialCounts();
             await fetchRealPepeSubs();
             
-            setInterval(fetchLiveSocialCounts, 2000);
-            setInterval(fetchRealPepeSubs, 10000);
+            // Atjauno datus regulāri
+            setInterval(fetchLiveSocialCounts, 3000);
+            setInterval(fetchRealPepeSubs, 15000);
         };
     </script>
     <script defer src="/_vercel/insights/script.js"></script>
