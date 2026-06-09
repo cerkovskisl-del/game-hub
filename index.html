@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pepe vs MrBeast — Gaming Hub</title>
+    <title>Pepe vs MrBeast Network — Ultimate Gaming Hub</title>
     <style>
         :root {
-            --pepe-green: #00ff66;
-            --beast-pink: #ff007f;
-            --bg-main: #06070b;
-            --bg-card: rgba(13, 15, 26, 0.6);
-            --border-subtle: rgba(255, 255, 255, 0.05);
-            --text-muted: #8e92a4;
-            --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --pepe: #00ff66;
+            --beast: #00f0ff;
+            --premium-pink: #ff007f;
+            --bg-base: #030407;
+            --glass: rgba(10, 12, 22, 0.45);
+            --border-glow: rgba(255, 255, 255, 0.04);
+            --font-cyber: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         * {
@@ -22,198 +22,285 @@
         }
 
         body {
-            font-family: var(--font-sans);
-            background-color: var(--bg-main);
-            background-image: 
-                radial-gradient(circle at 50% 0%, rgba(0, 255, 102, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 50% 100%, rgba(255, 0, 127, 0.03) 0%, transparent 50%);
+            font-family: var(--font-cyber);
+            background-color: var(--bg-base);
             color: #f3f4f6;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 40px 24px;
+            padding: 60px 24px;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            position: relative;
         }
 
-        /* Valodas slēdzis */
+        /* Ambientās fona gaismas */
+        body::before, body::after {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            filter: blur(140px);
+            opacity: 0.12;
+            animation: floatGlow 12s infinite alternate ease-in-out;
+        }
+        body::before {
+            top: -200px;
+            left: 10%;
+            background: var(--pepe);
+        }
+        body::after {
+            bottom: -100px;
+            right: 10%;
+            background: var(--premium-pink);
+            animation-delay: -6s;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 40px) scale(1.1); }
+        }
+
+        /* Valodas Selektors */
         .lang-switcher {
             align-self: flex-end;
             max-width: 1200px;
             width: 100%;
             display: flex;
             justify-content: flex-end;
-            gap: 8px;
-            margin-bottom: 60px;
+            gap: 10px;
+            margin-bottom: 80px;
+            z-index: 10;
         }
 
         .lang-btn {
-            font-family: var(--font-sans);
+            font-family: var(--font-cyber);
             background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-subtle);
-            color: var(--text-muted);
-            padding: 8px 16px;
-            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: #717789;
+            padding: 10px 22px;
+            border-radius: 14px;
             cursor: pointer;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 0.85rem;
-            letter-spacing: 0.5px;
-            transition: all 0.25s ease;
+            letter-spacing: 1px;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .lang-btn:hover {
             color: #fff;
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
         }
 
         .lang-btn.active {
-            background: #fff;
-            color: var(--bg-main);
+            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+            color: #000;
             border-color: #fff;
-            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.15);
         }
 
-        /* Galvene */
+        /* Galvene un Virsraksts */
         header {
             text-align: center;
-            margin-bottom: 60px;
-        }
-
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: 12px;
-            background: linear-gradient(135deg, #fff 40%, var(--text-muted));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        p.subtitle {
-            font-size: 1rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-weight: 600;
-        }
-
-        /* Spēļu izkārtojums */
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            width: 100%;
-            margin-bottom: 60px;
-        }
-
-        /* Spēļu kartītes */
-        .game-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 20px;
-            overflow: hidden;
-            text-decoration: none;
-            color: #ffffff;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            display: flex;
-            flex-direction: column;
+            margin-bottom: 80px;
             position: relative;
         }
 
-        .game-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(255, 255, 255, 0.12);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        h1 {
+            font-size: 4.2rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 70%, #6366f1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
         }
 
-        /* NEW Tags */
+        p.subtitle {
+            font-size: 0.95rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            font-weight: 700;
+        }
+
+        /* Spēļu Režģis */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            width: 100%;
+            margin-bottom: 100px;
+        }
+
+        /* Premium Spēļu Kartītes */
+        .game-card {
+            background: var(--glass);
+            border: 1px solid var(--border-glow);
+            border-radius: 28px;
+            overflow: hidden;
+            text-decoration: none;
+            color: #ffffff;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            will-change: transform;
+        }
+
+        /* Kartītes iekšējais stikla spīdums */
+        .game-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 28px;
+            padding: 1px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.1), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: rgba(18, 22, 38, 0.6);
+            border-color: rgba(0, 255, 102, 0.4);
+            box-shadow: 0 30px 60px rgba(0, 255, 102, 0.15);
+        }
+
+        /* Dažādas neona krāsas pēc kārtas krutākam efektam */
+        .game-card:nth-child(2n):hover {
+            border-color: rgba(0, 240, 255, 0.4);
+            box-shadow: 0 30px 60px rgba(0, 240, 255, 0.15);
+        }
+        .game-card:nth-child(3n):hover {
+            border-color: rgba(255, 0, 127, 0.4);
+            box-shadow: 0 30px 60px rgba(255, 0, 127, 0.15);
+        }
+
+        /* Jaunais Cyber New Tags */
         .new-tag {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            background: var(--pepe-green);
-            color: #000;
+            top: 24px;
+            right: 24px;
+            background: linear-gradient(90deg, #ff007f, #7928ca);
+            color: #fff;
             font-size: 0.7rem;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 6px;
+            font-weight: 800;
+            padding: 6px 14px;
+            border-radius: 10px;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 0 15px rgba(0, 255, 102, 0.3);
+            letter-spacing: 1.5px;
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.6);
             z-index: 10;
+            animation: pulseGlow 2s infinite;
         }
 
-        /* Bildes/Ikones vieta */
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 15px rgba(255, 0, 127, 0.5); }
+            50% { box-shadow: 0 0 30px rgba(255, 0, 127, 0.9); }
+            100% { box-shadow: 0 0 15px rgba(255, 0, 127, 0.5); }
+        }
+
+        /* Spēles Vizuālais Centrs */
         .game-thumbnail {
             width: 100%;
-            height: 180px;
-            background: rgba(0, 0, 0, 0.2);
+            height: 220px;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.03) 0%, rgba(0,0,0,0.4) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4rem;
-            border-bottom: 1px solid var(--border-subtle);
-            transition: transform 0.3s ease;
+            font-size: 5.5rem;
+            position: relative;
+            border-bottom: 1px solid var(--border-glow);
+            transition: all 0.4s ease;
+        }
+
+        .game-card:hover .game-thumbnail {
+            transform: scale(1.05);
+            background: radial-gradient(circle at center, rgba(255,255,255,0.07) 0%, rgba(0,0,0,0.5) 100%);
         }
 
         /* Informācija */
         .game-info {
-            padding: 24px;
+            padding: 32px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
         }
 
         .game-info h2 {
-            margin-bottom: 20px;
-            font-size: 1.35rem;
-            font-weight: 700;
-            letter-spacing: -0.3px;
+            margin-bottom: 24px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
             color: #fff;
+            transition: transform 0.3s ease;
         }
 
-        /* Poga */
+        /* Interaktīvā Poga */
         .play-btn {
             margin-top: auto;
-            padding: 12px 0;
+            padding: 16px 0;
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            color: #fff;
+            border-radius: 16px;
+            color: #e2e8f0;
             text-align: center;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 0.9rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: all 0.2s ease;
+            letter-spacing: 1px;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .game-card:hover .play-btn {
-            background: #fff;
-            color: var(--bg-main);
-            border-color: #fff;
+            background: #ffffff;
+            color: #000000;
+            border-color: #ffffff;
+            box-shadow: 0 15px 30px rgba(255, 255, 255, 0.2);
+            transform: scale(1.02);
         }
 
-        /* Footer */
+        /* Futūristisks Footeris */
         footer {
             margin-top: auto;
             text-align: center;
-            color: rgba(255, 255, 255, 0.2);
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            width: 100%;
+            max-width: 1200px;
         }
 
-        /* Adaptivitāte telefoniem */
-        @media (max-width: 680px) {
-            h1 { font-size: 2.5rem; }
-            p.subtitle { font-size: 0.85rem; }
-            .games-grid { grid-template-columns: 1fr; gap: 20px; }
-            body { padding: 24px 16px; }
+        footer p {
+            color: #475569;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        /* Perfekts responsive dizains telefoniem */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.8rem; letter-spacing: -1px; }
+            p.subtitle { font-size: 0.8rem; letter-spacing: 3px; }
+            .games-grid { grid-template-columns: 1fr; gap: 24px; }
+            body { padding: 30px 16px; }
+            .lang-switcher { margin-bottom: 40px; }
         }
     </style>
 </head>
@@ -277,7 +364,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 Pepe vs MrBeast Gaming Hub. All rights reserved.</p>
+        <p>&copy; 2026 Pepe vs MrBeast Gaming Hub Network. Engineered for Gamers.</p>
     </footer>
 
     <script>
