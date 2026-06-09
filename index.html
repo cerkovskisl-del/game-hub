@@ -35,7 +35,6 @@
             position: relative;
         }
 
-        /* Ambientās fona gaismas */
         body::before, body::after {
             content: '';
             position: absolute;
@@ -65,7 +64,6 @@
             100% { transform: translate(50px, 40px) scale(1.1); }
         }
 
-        /* Valodas Selektors */
         .lang-switcher {
             align-self: flex-end;
             max-width: 1200px;
@@ -107,7 +105,6 @@
             box-shadow: 0 10px 25px rgba(255, 255, 255, 0.15);
         }
 
-        /* Galvene un Virsraksts */
         header {
             text-align: center;
             margin-bottom: 80px;
@@ -134,7 +131,6 @@
             font-weight: 700;
         }
 
-        /* Spēļu Režģis */
         .games-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -144,7 +140,6 @@
             margin-bottom: 100px;
         }
 
-        /* Premium Spēļu Kartītes */
         .game-card {
             background: var(--glass);
             border: 1px solid var(--border-glow);
@@ -162,7 +157,6 @@
             will-change: transform;
         }
 
-        /* Kartītes iekšējais stikla spīdums */
         .game-card::after {
             content: '';
             position: absolute;
@@ -184,7 +178,6 @@
             box-shadow: 0 30px 60px rgba(0, 255, 102, 0.15);
         }
 
-        /* Dažādas neona krāsas pēc kārtas krutākam efektam */
         .game-card:nth-child(2n):hover {
             border-color: rgba(0, 240, 255, 0.4);
             box-shadow: 0 30px 60px rgba(0, 240, 255, 0.15);
@@ -194,7 +187,6 @@
             box-shadow: 0 30px 60px rgba(255, 0, 127, 0.15);
         }
 
-        /* Jaunais Cyber New Tags */
         .new-tag {
             position: absolute;
             top: 24px;
@@ -218,7 +210,6 @@
             100% { box-shadow: 0 0 15px rgba(255, 0, 127, 0.5); }
         }
 
-        /* Spēles Vizuālais Centrs */
         .game-thumbnail {
             width: 100%;
             height: 220px;
@@ -237,7 +228,6 @@
             background: radial-gradient(circle at center, rgba(255,255,255,0.07) 0%, rgba(0,0,0,0.5) 100%);
         }
 
-        /* Informācija */
         .game-info {
             padding: 32px;
             display: flex;
@@ -251,10 +241,8 @@
             font-weight: 800;
             letter-spacing: -0.5px;
             color: #fff;
-            transition: transform 0.3s ease;
         }
 
-        /* Interaktīvā Poga */
         .play-btn {
             margin-top: auto;
             padding: 16px 0;
@@ -278,7 +266,6 @@
             transform: scale(1.02);
         }
 
-        /* Futūristisks Footeris */
         footer {
             margin-top: auto;
             text-align: center;
@@ -294,13 +281,38 @@
             letter-spacing: 1px;
         }
 
-        /* Perfekts responsive dizains telefoniem */
+        /* 2 KODS TELEFONIEM (DIVĀS KOLONNĀS) */
         @media (max-width: 768px) {
-            h1 { font-size: 2.8rem; letter-spacing: -1px; }
-            p.subtitle { font-size: 0.8rem; letter-spacing: 3px; }
-            .games-grid { grid-template-columns: 1fr; gap: 24px; }
-            body { padding: 30px 16px; }
+            h1 { font-size: 2.4rem; letter-spacing: -1px; }
+            p.subtitle { font-size: 0.75rem; letter-spacing: 2px; }
+            
+            /* Pārslēdzam tīklu uz 2 kolonnām un samazinām spraugas */
+            .games-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 12px; 
+                margin-bottom: 60px;
+            }
+            
+            body { padding: 30px 12px; }
             .lang-switcher { margin-bottom: 40px; }
+            
+            /* Kompaktāks kartīšu dizains, lai labi ietilptu ekrānā */
+            .game-card { border-radius: 16px; }
+            .game-card::after { border-radius: 16px; }
+            .game-thumbnail { height: 120px; font-size: 3.2rem; }
+            
+            .game-info { padding: 14px; }
+            .game-info h2 { font-size: 1rem; margin-bottom: 12px; font-weight: 700; }
+            
+            .play-btn { padding: 10px 0; font-size: 0.8rem; border-radius: 10px; }
+            
+            .new-tag {
+                top: 10px;
+                right: 10px;
+                font-size: 0.55rem;
+                padding: 3px 8px;
+                border-radius: 6px;
+            }
         }
     </style>
 </head>
