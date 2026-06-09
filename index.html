@@ -426,10 +426,17 @@
             </div>
         </a>
         <a href="https://pepe-dash-livid.vercel.app/" target="_blank" class="game-card">
-            <div class="new-tag">New</div>
             <div class="game-thumbnail">💨</div>
             <div class="game-info">
                 <h2 id="g6-title">Pepe Dash</h2>
+                <div class="play-btn class-play-btn">Play</div>
+            </div>
+        </a>
+        <a href="https://pepe-vs-mrbeast-tower-defense.vercel.app/" target="_blank" class="game-card">
+            <div class="new-tag">New</div>
+            <div class="game-thumbnail">🏰</div>
+            <div class="game-info">
+                <h2 id="g7-title">Pepe vs MrBeast Tower Defense</h2>
                 <div class="play-btn class-play-btn">Play</div>
             </div>
         </a>
@@ -445,19 +452,19 @@
                 title: "Pepe vs MrBeast", subtitle: "Visas spēles vienuviet", play: "Spēlēt", search: "Meklēt spēli...",
                 g1_title: "Pepe Army vs Mr Beast", g2_title: "Pepe vs MrBeast",
                 g3_title: "Pepe Platformer", g4_title: "Flappy Pepe Beast Escape", 
-                g5_title: "Pepe Memory", g6_title: "Pepe Dash"
+                g5_title: "Pepe Memory", g6_title: "Pepe Dash", g7_title: "Pepe vs MrBeast Tower Defense"
             },
             en: {
                 title: "Pepe vs MrBeast", subtitle: "All games in one place", play: "Play", search: "Search games...",
                 g1_title: "Pepe Army vs Mr Beast", g2_title: "Pepe vs MrBeast",
                 g3_title: "Pepe Platformer", g4_title: "Flappy Pepe Beast Escape", 
-                g5_title: "Pepe Memory", g6_title: "Pepe Dash"
+                g5_title: "Pepe Memory", g6_title: "Pepe Dash", g7_title: "Pepe vs MrBeast Tower Defense"
             },
             ru: {
                 title: "Pepe vs MrBeast", subtitle: "Все игры в одном месте", play: "Играть", search: "Поиск игры...",
                 g1_title: "Pepe Army vs Mr Beast", g2_title: "Pepe vs MrBeast",
                 g3_title: "Pepe Platformer", g4_title: "Flappy Pepe Beast Escape", 
-                g5_title: "Pepe Memory", g6_title: "Pepe Dash"
+                g5_title: "Pepe Memory", g6_title: "Pepe Dash", g7_title: "Pepe vs MrBeast Tower Defense"
             }
         };
 
@@ -474,6 +481,7 @@
             document.getElementById('g4-title').innerText = translations[lang].g4_title;
             document.getElementById('g5-title').innerText = translations[lang].g5_title;
             document.getElementById('g6-title').innerText = translations[lang].g6_title;
+            document.getElementById('g7-title').innerText = translations[lang].g7_title;
 
             const playButtons = document.querySelectorAll('.class-play-btn');
             playButtons.forEach(btn => { btn.innerText = translations[lang].play; });
@@ -492,7 +500,6 @@
             const cards = document.querySelectorAll('.game-card');
 
             cards.forEach((card, index) => {
-                // Izmanto apakšsvītru, lai precīzi atbilstu tulkojumu objekta atslēgām (g1_title)
                 const titleKey = `g${index + 1}_title`;
                 const titleText = translations[currentLang][titleKey].toLowerCase();
 
