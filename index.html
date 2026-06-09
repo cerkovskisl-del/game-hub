@@ -71,7 +71,7 @@
             display: flex;
             justify-content: flex-end;
             gap: 10px;
-            margin-bottom: 80px;
+            margin-bottom: 60px;
             z-index: 10;
         }
 
@@ -107,7 +107,7 @@
 
         header {
             text-align: center;
-            margin-bottom: 80px;
+            margin-bottom: 40px;
             position: relative;
         }
 
@@ -129,6 +129,41 @@
             text-transform: uppercase;
             letter-spacing: 6px;
             font-weight: 700;
+        }
+
+        /* Meklētāja konteiners un stils */
+        .search-container {
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 24px;
+            font-family: var(--font-cyber);
+            font-size: 1rem;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-input:focus {
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05);
+        }
+
+        .search-input::placeholder {
+            color: #4b526d;
         }
 
         .games-grid {
@@ -281,37 +316,59 @@
             letter-spacing: 1px;
         }
 
-        /* 2 KODS TELEFONIEM (DIVĀS KOLONNĀS) */
         @media (max-width: 768px) {
-            h1 { font-size: 2.4rem; letter-spacing: -1px; }
+            h1 { font-size: 2.2rem; letter-spacing: -1px; margin-bottom: 10px; }
             p.subtitle { font-size: 0.75rem; letter-spacing: 2px; }
             
-            /* Pārslēdzam tīklu uz 2 kolonnām un samazinām spraugas */
+            .search-container { margin-bottom: 35px; padding: 0 8px; }
+            .search-input { padding: 12px 18px; font-size: 0.9rem; border-radius: 14px; }
+
             .games-grid { 
                 grid-template-columns: repeat(2, 1fr); 
                 gap: 12px; 
                 margin-bottom: 60px;
             }
             
-            body { padding: 30px 12px; }
-            .lang-switcher { margin-bottom: 40px; }
+            body { padding: 20px 10px; }
+            .lang-switcher { margin-bottom: 30px; }
             
-            /* Kompaktāks kartīšu dizains, lai labi ietilptu ekrānā */
-            .game-card { border-radius: 16px; }
+            .game-card { border-radius: 16px; display: flex; flex-direction: column; height: 100%; }
             .game-card::after { border-radius: 16px; }
-            .game-thumbnail { height: 120px; font-size: 3.2rem; }
+            .game-thumbnail { height: 110px; font-size: 2.8rem; }
             
-            .game-info { padding: 14px; }
-            .game-info h2 { font-size: 1rem; margin-bottom: 12px; font-weight: 700; }
+            .game-info { 
+                padding: 12px; 
+                display: flex; 
+                flex-direction: column; 
+                flex-grow: 1; 
+                justify-content: space-between; 
+            }
             
-            .play-btn { padding: 10px 0; font-size: 0.8rem; border-radius: 10px; }
+            .game-info h2 { 
+                font-size: 0.95rem; 
+                line-height: 1.3;
+                margin-bottom: 12px; 
+                font-weight: 700;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+            
+            .play-btn { 
+                padding: 10px 0; 
+                font-size: 0.75rem; 
+                border-radius: 10px; 
+                width: 100%;
+                margin-top: auto;
+            }
             
             .new-tag {
-                top: 10px;
-                right: 10px;
+                top: 8px;
+                right: 8px;
                 font-size: 0.55rem;
-                padding: 3px 8px;
-                border-radius: 6px;
+                padding: 2px 6px;
+                border-radius: 5px;
             }
         }
     </style>
@@ -329,7 +386,11 @@
         <p id="main-subtitle" class="subtitle">All games in one place</p>
     </header>
 
-    <div class="games-grid">
+    <div class="search-container">
+        <input type="text" id="search-bar" class="search-input" placeholder="Search games..." oninput="filterGames()">
+    </div>
+
+    <div class="games-grid" id="games-grid">
         <a href="https://pepe-army-vs-mr-beast.vercel.app/" target="_blank" class="game-card">
             <div class="game-thumbnail">🪖</div>
             <div class="game-info">
@@ -382,28 +443,32 @@
     <script>
         const translations = {
             lv: {
-                title: "Pepe vs MrBeast", subtitle: "Visas spēles vienuviet", play: "Spēlēt",
+                title: "Pepe vs MrBeast", subtitle: "Visas spēles vienuviet", play: "Spēlēt", search: "Meklēt spēli...",
                 g1_title: "Pepe Army vs Mr Beast", g2_title: "Pepe vs MrBeast",
                 g3_title: "Pepe Platformer", g4_title: "Flappy Pepe Beast Escape", 
                 g5_title: "Pepe Memory", g6_title: "Pepe Dash"
             },
             en: {
-                title: "Pepe vs MrBeast", subtitle: "All games in one place", play: "Play",
+                title: "Pepe vs MrBeast", subtitle: "All games in one place", play: "Play", search: "Search games...",
                 g1_title: "Pepe Army vs Mr Beast", g2_title: "Pepe vs MrBeast",
                 g3_title: "Pepe Platformer", g4_title: "Flappy Pepe Beast Escape", 
                 g5_title: "Pepe Memory", g6_title: "Pepe Dash"
             },
             ru: {
-                title: "Pepe vs MrBeast", subtitle: "Все игры в одном месте", play: "Играть",
+                title: "Pepe vs MrBeast", subtitle: "Все игры в одном месте", play: "Играть", search: "Поиск игры...",
                 g1_title: "Pepe Army vs Mr Beast", g2_title: "Pepe vs MrBeast",
                 g3_title: "Pepe Platformer", g4_title: "Flappy Pepe Beast Escape", 
                 g5_title: "Pepe Memory", g6_title: "Pepe Dash"
             }
         };
 
+        let currentLang = 'en';
+
         function changeLanguage(lang, event) {
+            currentLang = lang;
             document.getElementById('main-title').innerText = translations[lang].title;
             document.getElementById('main-subtitle').innerText = translations[lang].subtitle;
+            document.getElementById('search-bar').placeholder = translations[lang].search;
             document.getElementById('g1-title').innerText = translations[lang].g1_title;
             document.getElementById('g2-title').innerText = translations[lang].g2_title;
             document.getElementById('g3-title').innerText = translations[lang].g3_title;
@@ -419,6 +484,27 @@
             
             if (event) event.target.classList.add('active');
             else document.getElementById('btn-' + lang).classList.add('active');
+
+            // Pārmeklē vēlreiz pēc valodas nomaiņas, ja meklētājā jau kaut kas ir ierakstīts
+            filterGames();
+        }
+
+        // Reāllaika meklēšanas funkcija
+        function filterGames() {
+            const query = document.getElementById('search-bar').value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.game-card');
+
+            cards.forEach((card, index) => {
+                // Iegūst ID pēc kārtas numura g1, g2 utt.
+                const titleId = `g${index + 1}-title`;
+                const titleText = translations[currentLang][titleId].toLowerCase();
+
+                if (titleText.includes(query)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
         }
 
         window.onload = function() {
