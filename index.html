@@ -141,10 +141,26 @@
             box-shadow: 0 20px 40px rgba(0, 255, 102, 0.1);
         }
 
-        /* Katrai otrai kartītei iedodam rozā MrBeast akcentu pie hover */
         .game-card:nth-child(even):hover {
             border-color: rgba(255, 0, 127, 0.3);
             box-shadow: 0 20px 40px rgba(255, 0, 127, 0.1);
+        }
+
+        /* NEW Tags */
+        .new-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #ff0055, #ff00aa);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 900;
+            padding: 4px 10px;
+            border-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(255, 0, 85, 0.5);
+            z-index: 10;
         }
 
         /* Bildes/Ikones vieta */
@@ -279,6 +295,14 @@
                 <div class="play-btn class-play-btn">Play</div>
             </div>
         </a>
+        <a href="https://pepe-dash-livid.vercel.app/" target="_blank" class="game-card">
+            <div class="new-tag">New</div>
+            <div class="game-thumbnail">💨</div>
+            <div class="game-info">
+                <h2 id="g6-title">Pepe Dash</h2>
+                <div class="play-btn class-play-btn">Play</div>
+            </div>
+        </a>
     </div>
 
     <script>
@@ -286,17 +310,20 @@
             lv: {
                 title: "Pepe vs MrBeast", subtitle: "Visas spēles vienuviet", play: "Spēlēt",
                 g1_title: "Pepe Army vs Mr Beast", g2_title: "Pepe vs MrBeast",
-                g3_title: "Pepe Platformer", g4_title: "Flappy Pepe Beast Escape", g5_title: "Pepe Memory"
+                g3_title: "Pepe Platformer", g4_title: "Flappy Pepe Beast Escape", 
+                g5_title: "Pepe Memory", g6_title: "Pepe Dash"
             },
             en: {
                 title: "Pepe vs MrBeast", subtitle: "All games in one place", play: "Play",
                 g1_title: "Pepe Army vs Mr Beast", g2_title: "Pepe vs MrBeast",
-                g3_title: "Pepe Platformer", g4_title: "Flappy Pepe Beast Escape", g5_title: "Pepe Memory"
+                g3_title: "Pepe Platformer", g4_title: "Flappy Pepe Beast Escape", 
+                g5_title: "Pepe Memory", g6_title: "Pepe Dash"
             },
             ru: {
                 title: "Pepe vs MrBeast", subtitle: "Все игры в одном месте", play: "Играть",
                 g1_title: "Pepe Army vs Mr Beast", g2_title: "Pepe vs MrBeast",
-                g3_title: "Pepe Platformer", g4_title: "Flappy Pepe Beast Escape", g5_title: "Pepe Memory"
+                g3_title: "Pepe Platformer", g4_title: "Flappy Pepe Beast Escape", 
+                g5_title: "Pepe Memory", g6_title: "Pepe Dash"
             }
         };
 
@@ -308,6 +335,7 @@
             document.getElementById('g3-title').innerText = translations[lang].g3_title;
             document.getElementById('g4-title').innerText = translations[lang].g4_title;
             document.getElementById('g5-title').innerText = translations[lang].g5_title;
+            document.getElementById('g6-title').innerText = translations[lang].g6_title;
 
             const playButtons = document.querySelectorAll('.class-play-btn');
             playButtons.forEach(btn => { btn.innerText = translations[lang].play; });
