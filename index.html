@@ -131,7 +131,6 @@
             font-weight: 700;
         }
 
-        /* Meklētāja konteiners un stils */
         .search-container {
             width: 100%;
             max-width: 500px;
@@ -485,19 +484,17 @@
             if (event) event.target.classList.add('active');
             else document.getElementById('btn-' + lang).classList.add('active');
 
-            // Pārmeklē vēlreiz pēc valodas nomaiņas, ja meklētājā jau kaut kas ir ierakstīts
             filterGames();
         }
 
-        // Reāllaika meklēšanas funkcija
         function filterGames() {
             const query = document.getElementById('search-bar').value.toLowerCase().trim();
             const cards = document.querySelectorAll('.game-card');
 
             cards.forEach((card, index) => {
-                // Iegūst ID pēc kārtas numura g1, g2 utt.
-                const titleId = `g${index + 1}-title`;
-                const titleText = translations[currentLang][titleId].toLowerCase();
+                // Izmanto apakšsvītru, lai precīzi atbilstu tulkojumu objekta atslēgām (g1_title)
+                const titleKey = `g${index + 1}_title`;
+                const titleText = translations[currentLang][titleKey].toLowerCase();
 
                 if (titleText.includes(query)) {
                     card.style.display = 'flex';
