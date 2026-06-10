@@ -9,9 +9,9 @@
             --pepe: #00ff66;
             --beast: #00f0ff;
             --premium-pink: #ff007f;
-            --bg-base: #030407;
-            --glass: rgba(10, 12, 22, 0.45);
-            --border-glow: rgba(255, 255, 255, 0.04);
+            --bg-base: #05070f;
+            --glass: rgba(13, 17, 33, 0.7);
+            --border-glow: rgba(255, 255, 255, 0.06);
             --font-cyber: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
@@ -29,80 +29,131 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 60px 24px;
+            padding: 120px 24px 60px 24px;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             position: relative;
         }
 
+        /* Krutāks fons ar kustīgiem gaismas apļiem */
         body::before, body::after {
             content: '';
             position: absolute;
-            width: 600px;
-            height: 600px;
+            width: 700px;
+            height: 700px;
             border-radius: 50%;
             pointer-events: none;
             z-index: -1;
-            filter: blur(140px);
-            opacity: 0.12;
-            animation: floatGlow 12s infinite alternate ease-in-out;
+            filter: blur(160px);
+            opacity: 0.15;
+            animation: floatGlow 15s infinite alternate ease-in-out;
         }
         body::before {
-            top: -200px;
-            left: 10%;
+            top: -100px;
+            left: -100px;
             background: var(--pepe);
         }
         body::after {
-            bottom: -100px;
-            right: 10%;
+            bottom: 100px;
+            right: -100px;
             background: var(--premium-pink);
-            animation-delay: -6s;
+            animation-delay: -7.5s;
         }
 
         @keyframes floatGlow {
             0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(50px, 40px) scale(1.1); }
+            100% { transform: translate(100px, 80px) scale(1.2); }
         }
 
-        .lang-switcher {
-            align-self: flex-end;
+        /* MODERNA NAVIGĀCIJAS JOSLA (MENU) */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 75px;
+            background: rgba(5, 7, 15, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 24px;
+        }
+
+        .nav-container {
             max-width: 1200px;
             width: 100%;
             display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-bottom: 60px;
-            z-index: 10;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .lang-btn {
-            font-family: var(--font-cyber);
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            color: #717789;
-            padding: 10px 22px;
-            border-radius: 14px;
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, var(--pepe), var(--beast));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             cursor: pointer;
-            font-weight: 700;
-            font-size: 0.85rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-item {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
             letter-spacing: 1px;
-            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: color 0.3s ease;
+            cursor: pointer;
         }
 
-        .lang-btn:hover {
+        .nav-item:hover, .nav-item.active {
             color: #fff;
-            background: rgba(255, 255, 255, 0.07);
-            border-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
         }
 
-        .lang-btn.active {
-            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* MAZĀKAS UN GLĪTĀKAS VALODAS POGAS IEKŠ MENU */
+        .lang-mini-switcher {
+            display: flex;
+            gap: 6px;
+            background: rgba(255,255,255,0.03);
+            padding: 4px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .lang-mini-btn {
+            background: transparent;
+            border: none;
+            color: #64748b;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-mini-btn.active {
+            background: #fff;
             color: #000;
-            border-color: #fff;
-            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.15);
         }
 
         header {
@@ -112,59 +163,57 @@
         }
 
         h1 {
-            font-size: 4.2rem;
+            font-size: 4.5rem;
             font-weight: 900;
-            letter-spacing: -2px;
-            margin-bottom: 16px;
+            letter-spacing: -3px;
+            margin-bottom: 12px;
             text-transform: uppercase;
             background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 70%, #6366f1 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            position: relative;
         }
 
         p.subtitle {
             font-size: 0.95rem;
-            color: #64748b;
+            color: #475569;
             text-transform: uppercase;
             letter-spacing: 6px;
             font-weight: 700;
         }
 
+        /* MEKLĒTĀJS */
         .search-container {
             width: 100%;
-            max-width: 500px;
-            margin-bottom: 60px;
+            max-width: 550px;
+            margin-bottom: 50px;
             position: relative;
             z-index: 5;
         }
 
         .search-input {
             width: 100%;
-            padding: 16px 24px;
+            padding: 18px 26px;
             font-family: var(--font-cyber);
             font-size: 1rem;
             color: #fff;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 18px;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: var(--glass);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
             outline: none;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
         .search-input:focus {
-            border-color: rgba(255, 255, 255, 0.3);
-            background: rgba(255, 255, 255, 0.05);
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05);
+            border-color: var(--pepe);
+            box-shadow: 0 0 30px rgba(0, 255, 102, 0.15);
         }
 
         .search-input::placeholder {
             color: #4b526d;
         }
 
+        /* SPĒĻU REŽĢIS */
         .games-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -188,9 +237,9 @@
             display: flex;
             flex-direction: column;
             position: relative;
-            will-change: transform;
         }
 
+        /* Kruts neona apmales efekts uz hover */
         .game-card::after {
             content: '';
             position: absolute;
@@ -203,22 +252,16 @@
             -webkit-mask-composite: xor;
             mask-composite: exclude;
             pointer-events: none;
+            transition: background 0.3s ease;
         }
 
         .game-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            background: rgba(18, 22, 38, 0.6);
-            border-color: rgba(0, 255, 102, 0.4);
-            box-shadow: 0 30px 60px rgba(0, 255, 102, 0.15);
+            transform: translateY(-8px);
+            background: rgba(17, 22, 43, 0.8);
+            box-shadow: 0 30px 60px rgba(0, 255, 102, 0.12);
         }
-
-        .game-card:nth-child(2n):hover {
-            border-color: rgba(0, 240, 255, 0.4);
-            box-shadow: 0 30px 60px rgba(0, 240, 255, 0.15);
-        }
-        .game-card:nth-child(3n):hover {
-            border-color: rgba(255, 0, 127, 0.4);
-            box-shadow: 0 30px 60px rgba(255, 0, 127, 0.15);
+        .game-card:hover::after {
+            background: linear-gradient(135deg, var(--pepe), var(--beast));
         }
 
         .new-tag {
@@ -247,19 +290,18 @@
         .game-thumbnail {
             width: 100%;
             height: 220px;
-            background: radial-gradient(circle at center, rgba(255,255,255,0.03) 0%, rgba(0,0,0,0.4) 100%);
+            background: radial-gradient(circle at center, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0.5) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 5.5rem;
             position: relative;
             border-bottom: 1px solid var(--border-glow);
-            transition: all 0.4s ease;
+            transition: transform 0.4s ease;
         }
 
         .game-card:hover .game-thumbnail {
-            transform: scale(1.05);
-            background: radial-gradient(circle at center, rgba(255,255,255,0.07) 0%, rgba(0,0,0,0.5) 100%);
+            transform: scale(1.03);
         }
 
         .game-info {
@@ -280,7 +322,7 @@
         .play-btn {
             margin-top: auto;
             padding: 16px 0;
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 16px;
             color: #e2e8f0;
@@ -289,7 +331,7 @@
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: all 0.3s ease;
         }
 
         .game-card:hover .play-btn {
@@ -297,8 +339,25 @@
             color: #000000;
             border-color: #ffffff;
             box-shadow: 0 15px 30px rgba(255, 255, 255, 0.2);
-            transform: scale(1.02);
         }
+
+        /* TOAST NOTIFICATION SYSTEM */
+        .toast {
+            position: fixed;
+            bottom: -100px;
+            right: 24px;
+            background: var(--glass);
+            border: 1px solid var(--pepe);
+            padding: 16px 28px;
+            border-radius: 16px;
+            color: #fff;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+        }
+        .toast.show { bottom: 24px; }
 
         footer {
             margin-top: auto;
@@ -315,12 +374,16 @@
             letter-spacing: 1px;
         }
 
+        /* MOBILAIS SKATS */
         @media (max-width: 768px) {
-            h1 { font-size: 2.2rem; letter-spacing: -1px; margin-bottom: 10px; }
-            p.subtitle { font-size: 0.75rem; letter-spacing: 2px; }
+            body { padding-top: 100px; padding-left: 12px; padding-right: 12px; }
+            h1 { font-size: 2.3rem; letter-spacing: -1px; }
+            p.subtitle { font-size: 0.75rem; letter-spacing: 3px; }
             
-            .search-container { margin-bottom: 35px; padding: 0 8px; }
-            .search-input { padding: 12px 18px; font-size: 0.9rem; border-radius: 14px; }
+            .nav-menu { display: none; } /* Paslēpj lielās saites uz mobilā dēļ vietas */
+            
+            .search-container { margin-bottom: 35px; padding: 0 4px; }
+            .search-input { padding: 14px 20px; font-size: 0.9rem; border-radius: 14px; }
 
             .games-grid { 
                 grid-template-columns: repeat(2, 1fr); 
@@ -328,21 +391,11 @@
                 margin-bottom: 60px;
             }
             
-            body { padding: 20px 10px; }
-            .lang-switcher { margin-bottom: 30px; }
-            
-            .game-card { border-radius: 16px; display: flex; flex-direction: column; height: 100%; }
+            .game-card { border-radius: 16px; height: 100%; }
             .game-card::after { border-radius: 16px; }
             .game-thumbnail { height: 110px; font-size: 2.8rem; }
             
-            .game-info { 
-                padding: 12px; 
-                display: flex; 
-                flex-direction: column; 
-                flex-grow: 1; 
-                justify-content: space-between; 
-            }
-            
+            .game-info { padding: 12px; justify-content: space-between; }
             .game-info h2 { 
                 font-size: 0.95rem; 
                 line-height: 1.3;
@@ -354,31 +407,30 @@
                 overflow: hidden;
             }
             
-            .play-btn { 
-                padding: 10px 0; 
-                font-size: 0.75rem; 
-                border-radius: 10px; 
-                width: 100%;
-                margin-top: auto;
-            }
-            
-            .new-tag {
-                top: 8px;
-                right: 8px;
-                font-size: 0.55rem;
-                padding: 2px 6px;
-                border-radius: 5px;
-            }
+            .play-btn { padding: 10px 0; font-size: 0.75rem; border-radius: 10px; }
+            .new-tag { top: 8px; right: 8px; font-size: 0.55rem; padding: 2px 6px; border-radius: 5px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="lang-switcher">
-        <button id="btn-lv" class="lang-btn" onclick="changeLanguage('lv', event)">LV</button>
-        <button id="btn-en" class="lang-btn active" onclick="changeLanguage('en', event)">EN</button>
-        <button id="btn-ru" class="lang-btn" onclick="changeLanguage('ru', event)">RU</button>
-    </div>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="filterCategory('all')">PepeHub</div>
+            <ul class="nav-menu">
+                <li><a class="nav-item active" id="m-all" onclick="filterCategory('all')">All Games</a></li>
+                <li><a class="nav-item" id="m-new" onclick="filterCategory('new')">New</a></li>
+                <li><a class="nav-item" id="m-pop" onclick="filterCategory('popular')">Popular</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="lang-mini-switcher">
+                    <button id="mlang-lv" class="lang-mini-btn" onclick="changeLanguage('lv')">LV</button>
+                    <button id="mlang-en" class="lang-mini-btn active" onclick="changeLanguage('en')">EN</button>
+                    <button id="mlang-ru" class="lang-mini-btn" onclick="changeLanguage('ru')">RU</button>
+                </div>
+            </div>
+        </div>
+    </nav>
 
     <header>
         <h1 id="main-title">Pepe vs MrBeast</h1>
@@ -390,57 +442,59 @@
     </div>
 
     <div class="games-grid" id="games-grid">
-        <a href="https://pepe-army-vs-mr-beast.vercel.app/" target="_blank" class="game-card">
+        <a href="https://pepe-vs-mrbeast-tower-defense.vercel.app/" target="_blank" class="game-card" data-new="true" data-pop="true">
+            <div class="new-tag">New</div>
+            <div class="game-thumbnail">🏰</div>
+            <div class="game-info">
+                <h2 id="g1-title">Pepe vs MrBeast Tower Defense</h2>
+                <div class="play-btn class-play-btn">Play</div>
+            </div>
+        </a>
+        <a href="https://pepe-army-vs-mr-beast.vercel.app/" target="_blank" class="game-card" data-pop="true">
             <div class="game-thumbnail">🪖</div>
             <div class="game-info">
-                <h2 id="g1-title">Pepe Army vs Mr Beast</h2>
+                <h2 id="g2-title">Pepe Army vs Mr Beast</h2>
                 <div class="play-btn class-play-btn">Play</div>
             </div>
         </a>
         <a href="https://pepe-vs-mrbeast.vercel.app/" target="_blank" class="game-card">
             <div class="game-thumbnail">⚔️</div>
             <div class="game-info">
-                <h2 id="g2-title">Pepe vs MrBeast</h2>
+                <h2 id="g3-title">Pepe vs MrBeast</h2>
                 <div class="play-btn class-play-btn">Play</div>
             </div>
         </a>
         <a href="https://pepe-vs-mrbeast-2.vercel.app/" target="_blank" class="game-card">
             <div class="game-thumbnail">🏃‍♂️</div>
             <div class="game-info">
-                <h2 id="g3-title">Pepe Platformer</h2>
+                <h2 id="g4-title">Pepe Platformer</h2>
                 <div class="play-btn class-play-btn">Play</div>
             </div>
         </a>
         <a href="https://flappy-pepe-beast-escape.vercel.app/" target="_blank" class="game-card">
             <div class="game-thumbnail">🐦</div>
             <div class="game-info">
-                <h2 id="g4-title">Flappy Pepe Beast Escape</h2>
+                <h2 id="g5-title">Flappy Pepe Beast Escape</h2>
                 <div class="play-btn class-play-btn">Play</div>
             </div>
         </a>
         <a href="https://pepe-memory.vercel.app/" target="_blank" class="game-card">
             <div class="game-thumbnail">🧠</div>
             <div class="game-info">
-                <h2 id="g5-title">Pepe Memory</h2>
+                <h2 id="g6-title">Pepe Memory</h2>
                 <div class="play-btn class-play-btn">Play</div>
             </div>
         </a>
         <a href="https://pepe-dash-livid.vercel.app/" target="_blank" class="game-card">
-            <div class="game-thumbnail">💨</div>
+            <div class="game-thumbnail">💎</div>
             <div class="game-info">
-                <h2 id="g6-title">Pepe Dash</h2>
-                <div class="play-btn class-play-btn">Play</div>
-            </div>
-        </a>
-        <a href="https://pepe-vs-mrbeast-tower-defense.vercel.app/" target="_blank" class="game-card">
-            <div class="new-tag">New</div>
-            <div class="game-thumbnail">🏰</div>
-            <div class="game-info">
-                <h2 id="g7-title">Pepe vs MrBeast Tower Defense</h2>
+                <h2 id="g7-title">Pepe Dash</h2>
                 <div class="play-btn class-play-btn">Play</div>
             </div>
         </a>
     </div>
+
+    <div id="toast-msg" class="toast">Category updated!</div>
 
     <footer>
         <p>&copy; 2026 Pepe vs MrBeast Gaming Hub Network. Engineered for Gamers.</p>
@@ -450,51 +504,70 @@
         const translations = {
             lv: {
                 title: "Pepe vs MrBeast", subtitle: "Visas spēles vienuviet", play: "Spēlēt", search: "Meklēt spēli...",
-                g1_title: "Pepe Army vs Mr Beast", g2_title: "Pepe vs MrBeast",
-                g3_title: "Pepe Platformer", g4_title: "Flappy Pepe Beast Escape", 
-                g5_title: "Pepe Memory", g6_title: "Pepe Dash", g7_title: "Pepe vs MrBeast Tower Defense"
+                m_all: "Visas Spēles", m_new: "Jaunumi", m_pop: "Populāras", toast: "Kategorija atjaunināta!",
+                g1_title: "Pepe vs MrBeast Tower Defense", g2_title: "Pepe Army vs Mr Beast",
+                g3_title: "Pepe vs MrBeast", g4_title: "Pepe Platformer", 
+                g5_title: "Flappy Pepe Beast Escape", g6_title: "Pepe Memory", g7_title: "Pepe Dash"
             },
             en: {
                 title: "Pepe vs MrBeast", subtitle: "All games in one place", play: "Play", search: "Search games...",
-                g1_title: "Pepe Army vs Mr Beast", g2_title: "Pepe vs MrBeast",
-                g3_title: "Pepe Platformer", g4_title: "Flappy Pepe Beast Escape", 
-                g5_title: "Pepe Memory", g6_title: "Pepe Dash", g7_title: "Pepe vs MrBeast Tower Defense"
+                m_all: "All Games", m_new: "New", m_pop: "Popular", toast: "Category updated!",
+                g1_title: "Pepe vs MrBeast Tower Defense", g2_title: "Pepe Army vs Mr Beast",
+                g3_title: "Pepe vs MrBeast", g4_title: "Pepe Platformer", 
+                g5_title: "Flappy Pepe Beast Escape", g6_title: "Pepe Memory", g7_title: "Pepe Dash"
             },
             ru: {
                 title: "Pepe vs MrBeast", subtitle: "Все игры в одном месте", play: "Играть", search: "Поиск игры...",
-                g1_title: "Pepe Army vs Mr Beast", g2_title: "Pepe vs MrBeast",
-                g3_title: "Pepe Platformer", g4_title: "Flappy Pepe Beast Escape", 
-                g5_title: "Pepe Memory", g6_title: "Pepe Dash", g7_title: "Pepe vs MrBeast Tower Defense"
+                m_all: "Все игры", m_new: "Новинки", m_pop: "Популярные", toast: "Категория обновлена!",
+                g1_title: "Pepe vs MrBeast Tower Defense", g2_title: "Pepe Army vs Mr Beast",
+                g3_title: "Pepe vs MrBeast", g4_title: "Pepe Platformer", 
+                g5_title: "Flappy Pepe Beast Escape", g6_title: "Pepe Memory", g7_title: "Pepe Dash"
             }
         };
 
         let currentLang = 'en';
+        let currentCategory = 'all';
 
-        function changeLanguage(lang, event) {
+        function changeLanguage(lang) {
             currentLang = lang;
             document.getElementById('main-title').innerText = translations[lang].title;
             document.getElementById('main-subtitle').innerText = translations[lang].subtitle;
             document.getElementById('search-bar').placeholder = translations[lang].search;
-            document.getElementById('g1-title').innerText = translations[lang].g1_title;
-            document.getElementById('g2-title').innerText = translations[lang].g2_title;
-            document.getElementById('g3-title').innerText = translations[lang].g3_title;
-            document.getElementById('g4-title').innerText = translations[lang].g4_title;
-            document.getElementById('g5-title').innerText = translations[lang].g5_title;
-            document.getElementById('g6-title').innerText = translations[lang].g6_title;
-            document.getElementById('g7-title').innerText = translations[lang].g7_title;
+            
+            // Menu tulkojumi
+            document.getElementById('m-all').innerText = translations[lang].m_all;
+            document.getElementById('m-new').innerText = translations[lang].m_new;
+            document.getElementById('m-pop').innerText = translations[lang].m_pop;
+
+            // Spēļu tulkojumi
+            for (let i = 1; i <= 7; i++) {
+                document.getElementById(`g${i}-title`).innerText = translations[lang][`g${i}_title`];
+            }
 
             const playButtons = document.querySelectorAll('.class-play-btn');
             playButtons.forEach(btn => { btn.innerText = translations[lang].play; });
 
-            const buttons = document.querySelectorAll('.lang-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            
-            if (event) event.target.classList.add('active');
-            else document.getElementById('btn-' + lang).classList.add('active');
+            // Aktīvās valodas pogas stils
+            document.querySelectorAll('.lang-mini-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('mlang-' + lang).classList.add('active');
 
             filterGames();
         }
 
+        // Kategoriju filtrēšanas sistēma caur Menu
+        function filterCategory(category) {
+            currentCategory = category;
+            
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            if(category === 'all') document.getElementById('m-all').classList.add('active');
+            if(category === 'new') document.getElementById('m-new').classList.add('active');
+            if(category === 'popular') document.getElementById('m-pop').classList.add('active');
+
+            showToast(translations[currentLang].toast);
+            filterGames();
+        }
+
+        // Apvienotā meklētāja un kategoriju filtrēšana
         function filterGames() {
             const query = document.getElementById('search-bar').value.toLowerCase().trim();
             const cards = document.querySelectorAll('.game-card');
@@ -502,13 +575,27 @@
             cards.forEach((card, index) => {
                 const titleKey = `g${index + 1}_title`;
                 const titleText = translations[currentLang][titleKey].toLowerCase();
+                
+                const matchesSearch = titleText.includes(query);
+                let matchesCategory = true;
 
-                if (titleText.includes(query)) {
+                if (currentCategory === 'new' && !card.getAttribute('data-new')) matchesCategory = false;
+                if (currentCategory === 'popular' && !card.getAttribute('data-pop')) matchesCategory = false;
+
+                if (matchesSearch && matchesCategory) {
                     card.style.display = 'flex';
                 } else {
                     card.style.display = 'none';
                 }
             });
+        }
+
+        // Paziņojumu funkcija (Toast)
+        function showToast(msg) {
+            const toast = document.getElementById('toast-msg');
+            toast.innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => { toast.classList.remove('show'); }, 2500);
         }
 
         window.onload = function() {
