@@ -35,7 +35,6 @@
             position: relative;
         }
 
-        /* Krutāks fons ar kustīgiem gaismas apļiem */
         body::before, body::after {
             content: '';
             position: absolute;
@@ -65,7 +64,7 @@
             100% { transform: translate(100px, 80px) scale(1.2); }
         }
 
-        /* MODERNA NAVIGĀCIJAS JOSLA (MENU) */
+        /* MENU JOSLA */
         .navbar {
             position: fixed;
             top: 0;
@@ -126,10 +125,30 @@
         .nav-right {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
         }
 
-        /* MAZĀKAS UN GLĪTĀKAS VALODAS POGAS IEKŠ MENU */
+        /* KRUTA SUPPORT POGA NAVIGĀCIJĀ */
+        .support-btn {
+            background: linear-gradient(90deg, #00f0ff, #ff007f);
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 10px 18px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(255, 0, 127, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .support-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 0, 127, 0.5);
+            filter: brightness(1.1);
+        }
+
         .lang-mini-switcher {
             display: flex;
             gap: 6px;
@@ -181,7 +200,6 @@
             font-weight: 700;
         }
 
-        /* MEKLĒTĀJS */
         .search-container {
             width: 100%;
             max-width: 550px;
@@ -213,7 +231,7 @@
             color: #4b526d;
         }
 
-        /* SPĒĻU REŽĢIS */
+        /* REŽĢIS */
         .games-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -239,7 +257,6 @@
             position: relative;
         }
 
-        /* Kruts neona apmales efekts uz hover */
         .game-card::after {
             content: '';
             position: absolute;
@@ -341,7 +358,6 @@
             box-shadow: 0 15px 30px rgba(255, 255, 255, 0.2);
         }
 
-        /* TOAST NOTIFICATION SYSTEM */
         .toast {
             position: fixed;
             bottom: -100px;
@@ -372,15 +388,31 @@
             color: #475569;
             font-size: 0.85rem;
             letter-spacing: 1px;
+            margin-bottom: 15px;
         }
 
-        /* MOBILAIS SKATS */
+        /* LEJAS MARĶĒJUMS UN ATBALSTA SAITE APAKŠĀ */
+        .footer-support {
+            display: inline-block;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border-bottom: 1px dashed rgba(255,255,255,0.2);
+            transition: color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .footer-support:hover {
+            color: var(--pepe);
+            border-color: var(--pepe);
+        }
+
         @media (max-width: 768px) {
             body { padding-top: 100px; padding-left: 12px; padding-right: 12px; }
             h1 { font-size: 2.3rem; letter-spacing: -1px; }
             p.subtitle { font-size: 0.75rem; letter-spacing: 3px; }
             
-            .nav-menu { display: none; } /* Paslēpj lielās saites uz mobilā dēļ vietas */
+            .nav-menu { display: none; }
             
             .search-container { margin-bottom: 35px; padding: 0 4px; }
             .search-input { padding: 14px 20px; font-size: 0.9rem; border-radius: 14px; }
@@ -409,6 +441,8 @@
             
             .play-btn { padding: 10px 0; font-size: 0.75rem; border-radius: 10px; }
             .new-tag { top: 8px; right: 8px; font-size: 0.55rem; padding: 2px 6px; border-radius: 5px; }
+            
+            .support-btn { padding: 8px 12px; font-size: 0.7rem; border-radius: 8px; }
         }
     </style>
 </head>
@@ -423,6 +457,7 @@
                 <li><a class="nav-item" id="m-pop" onclick="filterCategory('popular')">Popular</a></li>
             </ul>
             <div class="nav-right">
+                <a href="https://revolut.me/igorsyeqd" target="_blank" id="nav-support" class="support-btn">Support</a>
                 <div class="lang-mini-switcher">
                     <button id="mlang-lv" class="lang-mini-btn" onclick="changeLanguage('lv')">LV</button>
                     <button id="mlang-en" class="lang-mini-btn active" onclick="changeLanguage('en')">EN</button>
@@ -498,6 +533,7 @@
 
     <footer>
         <p>&copy; 2026 Pepe vs MrBeast Gaming Hub Network. Engineered for Gamers.</p>
+        <a href="https://revolut.me/igorsyeqd" target="_blank" id="footer-support-link" class="footer-support">Support Developer</a>
     </footer>
 
     <script>
@@ -505,6 +541,7 @@
             lv: {
                 title: "Pepe vs MrBeast", subtitle: "Visas spēles vienuviet", play: "Spēlēt", search: "Meklēt spēli...",
                 m_all: "Visas Spēles", m_new: "Jaunumi", m_pop: "Populāras", toast: "Kategorija atjaunināta!",
+                support: "Atbalstīt", footer_support: "Atbalstīt izstrādātāju",
                 g1_title: "Pepe vs MrBeast Tower Defense", g2_title: "Pepe Army vs Mr Beast",
                 g3_title: "Pepe vs MrBeast", g4_title: "Pepe Platformer", 
                 g5_title: "Flappy Pepe Beast Escape", g6_title: "Pepe Memory", g7_title: "Pepe Dash"
@@ -512,6 +549,7 @@
             en: {
                 title: "Pepe vs MrBeast", subtitle: "All games in one place", play: "Play", search: "Search games...",
                 m_all: "All Games", m_new: "New", m_pop: "Popular", toast: "Category updated!",
+                support: "Support", footer_support: "Support Developer",
                 g1_title: "Pepe vs MrBeast Tower Defense", g2_title: "Pepe Army vs Mr Beast",
                 g3_title: "Pepe vs MrBeast", g4_title: "Pepe Platformer", 
                 g5_title: "Flappy Pepe Beast Escape", g6_title: "Pepe Memory", g7_title: "Pepe Dash"
@@ -519,6 +557,7 @@
             ru: {
                 title: "Pepe vs MrBeast", subtitle: "Все игры в одном месте", play: "Играть", search: "Поиск игры...",
                 m_all: "Все игры", m_new: "Новинки", m_pop: "Популярные", toast: "Категория обновлена!",
+                support: "Поддержать", footer_support: "Поддержать разработчика",
                 g1_title: "Pepe vs MrBeast Tower Defense", g2_title: "Pepe Army vs Mr Beast",
                 g3_title: "Pepe vs MrBeast", g4_title: "Pepe Platformer", 
                 g5_title: "Flappy Pepe Beast Escape", g6_title: "Pepe Memory", g7_title: "Pepe Dash"
@@ -534,12 +573,14 @@
             document.getElementById('main-subtitle').innerText = translations[lang].subtitle;
             document.getElementById('search-bar').placeholder = translations[lang].search;
             
-            // Menu tulkojumi
             document.getElementById('m-all').innerText = translations[lang].m_all;
             document.getElementById('m-new').innerText = translations[lang].m_new;
             document.getElementById('m-pop').innerText = translations[lang].m_pop;
+            
+            // Atbalsta pogu teksti
+            document.getElementById('nav-support').innerText = translations[lang].support;
+            document.getElementById('footer-support-link').innerText = translations[lang].footer_support;
 
-            // Spēļu tulkojumi
             for (let i = 1; i <= 7; i++) {
                 document.getElementById(`g${i}-title`).innerText = translations[lang][`g${i}_title`];
             }
@@ -547,14 +588,12 @@
             const playButtons = document.querySelectorAll('.class-play-btn');
             playButtons.forEach(btn => { btn.innerText = translations[lang].play; });
 
-            // Aktīvās valodas pogas stils
             document.querySelectorAll('.lang-mini-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById('mlang-' + lang).classList.add('active');
 
             filterGames();
         }
 
-        // Kategoriju filtrēšanas sistēma caur Menu
         function filterCategory(category) {
             currentCategory = category;
             
@@ -567,7 +606,6 @@
             filterGames();
         }
 
-        // Apvienotā meklētāja un kategoriju filtrēšana
         function filterGames() {
             const query = document.getElementById('search-bar').value.toLowerCase().trim();
             const cards = document.querySelectorAll('.game-card');
@@ -590,7 +628,6 @@
             });
         }
 
-        // Paziņojumu funkcija (Toast)
         function showToast(msg) {
             const toast = document.getElementById('toast-msg');
             toast.innerText = msg;
