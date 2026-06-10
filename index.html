@@ -10,7 +10,7 @@
             --beast: #00f0ff;
             --premium-pink: #ff007f;
             --bg-base: #05070f;
-            --glass: rgba(13, 17, 33, 0.7);
+            --glass: rgba(13, 17, 33, 0.75);
             --border-glow: rgba(255, 255, 255, 0.06);
             --font-cyber: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
@@ -35,6 +35,7 @@
             position: relative;
         }
 
+        /* Fona neona apgaismojums */
         body::before, body::after {
             content: '';
             position: absolute;
@@ -44,7 +45,7 @@
             pointer-events: none;
             z-index: -1;
             filter: blur(160px);
-            opacity: 0.15;
+            opacity: 0.12;
             animation: floatGlow 15s infinite alternate ease-in-out;
         }
         body::before {
@@ -64,6 +65,17 @@
             100% { transform: translate(100px, 80px) scale(1.2); }
         }
 
+        /* 🌌 KUSTĪGO DAĻIŅU FONS CANVAS */
+        #bg-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
         /* MENU JOSLA */
         .navbar {
             position: fixed;
@@ -71,7 +83,7 @@
             left: 0;
             width: 100%;
             height: 75px;
-            background: rgba(5, 7, 15, 0.75);
+            background: rgba(5, 7, 15, 0.8);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -91,7 +103,7 @@
         }
 
         .logo {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 900;
             letter-spacing: -1px;
             text-transform: uppercase;
@@ -99,6 +111,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             cursor: pointer;
+            text-shadow: 0 0 20px rgba(0, 255, 102, 0.3);
         }
 
         .nav-menu {
@@ -120,6 +133,7 @@
 
         .nav-item:hover, .nav-item.active {
             color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
         .nav-right {
@@ -128,7 +142,6 @@
             gap: 15px;
         }
 
-        /* KRUTA SUPPORT POGA NAVIGĀCIJĀ */
         .support-btn {
             background: linear-gradient(90deg, #00f0ff, #ff007f);
             color: #fff;
@@ -190,6 +203,12 @@
             background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 70%, #6366f1 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: titlePulse 4s infinite alternate ease-in-out;
+        }
+
+        @keyframes titlePulse {
+            0% { filter: drop-shadow(0 0 0px rgba(255,255,255,0)); }
+            100% { filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.3)); }
         }
 
         p.subtitle {
@@ -227,11 +246,7 @@
             box-shadow: 0 0 30px rgba(0, 255, 102, 0.15);
         }
 
-        .search-input::placeholder {
-            color: #4b526d;
-        }
-
-        /* REŽĢIS */
+        /* SPĒĻU REŽĢIS */
         .games-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -273,9 +288,9 @@
         }
 
         .game-card:hover {
-            transform: translateY(-8px);
-            background: rgba(17, 22, 43, 0.8);
-            box-shadow: 0 30px 60px rgba(0, 255, 102, 0.12);
+            transform: translateY(-8px) scale(1.01);
+            background: rgba(17, 22, 43, 0.85);
+            box-shadow: 0 30px 60px rgba(0, 255, 102, 0.15);
         }
         .game-card:hover::after {
             background: linear-gradient(135deg, var(--pepe), var(--beast));
@@ -318,7 +333,7 @@
         }
 
         .game-card:hover .game-thumbnail {
-            transform: scale(1.03);
+            transform: scale(1.05);
         }
 
         .game-info {
@@ -336,8 +351,16 @@
             color: #fff;
         }
 
-        .play-btn {
+        /* ACTIONS JOSLA (PLAY + SHARE) */
+        .card-actions {
             margin-top: auto;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .play-btn {
+            flex-grow: 1;
             padding: 16px 0;
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -358,6 +381,29 @@
             box-shadow: 0 15px 30px rgba(255, 255, 255, 0.2);
         }
 
+        /* 🔗 KRUTA KOPĒŠANAS POGA (SHARE) */
+        .share-btn {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .share-btn:hover {
+            background: var(--beast);
+            border-color: var(--beast);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+        }
+
+        /* TOAST PAZIŅOJUMS */
         .toast {
             position: fixed;
             bottom: -100px;
@@ -391,7 +437,6 @@
             margin-bottom: 15px;
         }
 
-        /* LEJAS MARĶĒJUMS UN ATBALSTA SAITE APAKŠĀ */
         .footer-support {
             display: inline-block;
             color: #94a3b8;
@@ -439,14 +484,18 @@
                 overflow: hidden;
             }
             
+            .card-actions { gap: 6px; }
             .play-btn { padding: 10px 0; font-size: 0.75rem; border-radius: 10px; }
-            .new-tag { top: 8px; right: 8px; font-size: 0.55rem; padding: 2px 6px; border-radius: 5px; }
+            .share-btn { width: 36px; height: 36px; border-radius: 10px; font-size: 0.9rem; }
             
+            .new-tag { top: 8px; right: 8px; font-size: 0.55rem; padding: 2px 6px; border-radius: 5px; }
             .support-btn { padding: 8px 12px; font-size: 0.7rem; border-radius: 8px; }
         }
     </style>
 </head>
 <body>
+
+    <canvas id="bg-particles"></canvas>
 
     <nav class="navbar">
         <div class="nav-container">
@@ -477,56 +526,77 @@
     </div>
 
     <div class="games-grid" id="games-grid">
-        <a href="https://pepe-vs-mrbeast-tower-defense.vercel.app/" target="_blank" class="game-card" data-new="true" data-pop="true">
+        <div class="game-card" data-new="true" data-pop="true">
             <div class="new-tag">New</div>
             <div class="game-thumbnail">🏰</div>
             <div class="game-info">
                 <h2 id="g1-title">Pepe vs MrBeast Tower Defense</h2>
-                <div class="play-btn class-play-btn">Play</div>
+                <div class="card-actions">
+                    <a href="https://pepe-vs-mrbeast-tower-defense.vercel.app/" target="_blank" class="play-btn class-play-btn">Play</a>
+                    <div class="share-btn" onclick="copyLink('https://pepe-vs-mrbeast-tower-defense.vercel.app/', event)">🔗</div>
+                </div>
             </div>
-        </a>
-        <a href="https://pepe-army-vs-mr-beast.vercel.app/" target="_blank" class="game-card" data-pop="true">
+        </div>
+        <div class="game-card" data-pop="true">
             <div class="game-thumbnail">🪖</div>
             <div class="game-info">
                 <h2 id="g2-title">Pepe Army vs Mr Beast</h2>
-                <div class="play-btn class-play-btn">Play</div>
+                <div class="card-actions">
+                    <a href="https://pepe-army-vs-mr-beast.vercel.app/" target="_blank" class="play-btn class-play-btn">Play</a>
+                    <div class="share-btn" onclick="copyLink('https://pepe-army-vs-mr-beast.vercel.app/', event)">🔗</div>
+                </div>
             </div>
-        </a>
-        <a href="https://pepe-vs-mrbeast.vercel.app/" target="_blank" class="game-card">
+        </div>
+        <div class="game-card">
             <div class="game-thumbnail">⚔️</div>
             <div class="game-info">
                 <h2 id="g3-title">Pepe vs MrBeast</h2>
-                <div class="play-btn class-play-btn">Play</div>
+                <div class="card-actions">
+                    <a href="https://pepe-vs-mrbeast.vercel.app/" target="_blank" class="play-btn class-play-btn">Play</a>
+                    <div class="share-btn" onclick="copyLink('https://pepe-vs-mrbeast.vercel.app/', event)">🔗</div>
+                </div>
             </div>
-        </a>
-        <a href="https://pepe-vs-mrbeast-2.vercel.app/" target="_blank" class="game-card">
+        </div>
+        <div class="game-card">
             <div class="game-thumbnail">🏃‍♂️</div>
             <div class="game-info">
                 <h2 id="g4-title">Pepe Platformer</h2>
-                <div class="play-btn class-play-btn">Play</div>
+                <div class="card-actions">
+                    <a href="https://pepe-vs-mrbeast-2.vercel.app/" target="_blank" class="play-btn class-play-btn">Play</a>
+                    <div class="share-btn" onclick="copyLink('https://pepe-vs-mrbeast-2.vercel.app/', event)">🔗</div>
+                </div>
             </div>
-        </a>
-        <a href="https://flappy-pepe-beast-escape.vercel.app/" target="_blank" class="game-card">
+        </div>
+        <div class="game-card">
             <div class="game-thumbnail">🐦</div>
             <div class="game-info">
                 <h2 id="g5-title">Flappy Pepe Beast Escape</h2>
-                <div class="play-btn class-play-btn">Play</div>
+                <div class="card-actions">
+                    <a href="https://flappy-pepe-beast-escape.vercel.app/" target="_blank" class="play-btn class-play-btn">Play</a>
+                    <div class="share-btn" onclick="copyLink('https://flappy-pepe-beast-escape.vercel.app/', event)">🔗</div>
+                </div>
             </div>
-        </a>
-        <a href="https://pepe-memory.vercel.app/" target="_blank" class="game-card">
+        </div>
+        <div class="game-card">
             <div class="game-thumbnail">🧠</div>
             <div class="game-info">
                 <h2 id="g6-title">Pepe Memory</h2>
-                <div class="play-btn class-play-btn">Play</div>
+                <div class="card-actions">
+                    <a href="https://pepe-memory.vercel.app/" target="_blank" class="play-btn class-play-btn">Play</a>
+                    <div class="share-btn" onclick="copyLink('https://pepe-memory.vercel.app/', event)">🔗</div>
+                </div>
             </div>
-        </a>
-        <a href="https://pepe-dash-livid.vercel.app/" target="_blank" class="game-card">
+        </div>
+        <div class="game-card">
             <div class="game-thumbnail">💎</div>
             <div class="game-info">
                 <h2 id="g7-title">Pepe Dash</h2>
-                <div class="play-btn class-play-btn">Play</div>
+                <div class="card-actions">
+                    <a href="https://pepe-dash-livid.vercel.app/" target="_blank" class="play-btn class-play-btn">Play</a>
+                    <div class="share-btn" onclick="copyLink('https://pepe-dash-livid.vercel.app/', event)">🔗</div>
+                </div>
             </div>
-        </a>
+        </div>
     </div>
 
     <div id="toast-msg" class="toast">Category updated!</div>
@@ -541,7 +611,7 @@
             lv: {
                 title: "Pepe vs MrBeast", subtitle: "Visas spēles vienuviet", play: "Spēlēt", search: "Meklēt spēli...",
                 m_all: "Visas Spēles", m_new: "Jaunumi", m_pop: "Populāras", toast: "Kategorija atjaunināta!",
-                support: "Atbalstīt", footer_support: "Atbalstīt izstrādātāju",
+                support: "Atbalstīt", footer_support: "Atbalstīt izstrādātāju", copied: "Saite iekopēta starpliktuvē!",
                 g1_title: "Pepe vs MrBeast Tower Defense", g2_title: "Pepe Army vs Mr Beast",
                 g3_title: "Pepe vs MrBeast", g4_title: "Pepe Platformer", 
                 g5_title: "Flappy Pepe Beast Escape", g6_title: "Pepe Memory", g7_title: "Pepe Dash"
@@ -549,7 +619,7 @@
             en: {
                 title: "Pepe vs MrBeast", subtitle: "All games in one place", play: "Play", search: "Search games...",
                 m_all: "All Games", m_new: "New", m_pop: "Popular", toast: "Category updated!",
-                support: "Support", footer_support: "Support Developer",
+                support: "Support", footer_support: "Support Developer", copied: "Link copied to clipboard!",
                 g1_title: "Pepe vs MrBeast Tower Defense", g2_title: "Pepe Army vs Mr Beast",
                 g3_title: "Pepe vs MrBeast", g4_title: "Pepe Platformer", 
                 g5_title: "Flappy Pepe Beast Escape", g6_title: "Pepe Memory", g7_title: "Pepe Dash"
@@ -557,7 +627,7 @@
             ru: {
                 title: "Pepe vs MrBeast", subtitle: "Все игры в одном месте", play: "Играть", search: "Поиск игры...",
                 m_all: "Все игры", m_new: "Новинки", m_pop: "Популярные", toast: "Категория обновлена!",
-                support: "Поддержать", footer_support: "Поддержать разработчика",
+                support: "Поддержать", footer_support: "Поддержать разработчика", copied: "Ссылка скопирована!",
                 g1_title: "Pepe vs MrBeast Tower Defense", g2_title: "Pepe Army vs Mr Beast",
                 g3_title: "Pepe vs MrBeast", g4_title: "Pepe Platformer", 
                 g5_title: "Flappy Pepe Beast Escape", g6_title: "Pepe Memory", g7_title: "Pepe Dash"
@@ -577,7 +647,6 @@
             document.getElementById('m-new').innerText = translations[lang].m_new;
             document.getElementById('m-pop').innerText = translations[lang].m_pop;
             
-            // Atbalsta pogu teksti
             document.getElementById('nav-support').innerText = translations[lang].support;
             document.getElementById('footer-support-link').innerText = translations[lang].footer_support;
 
@@ -596,7 +665,6 @@
 
         function filterCategory(category) {
             currentCategory = category;
-            
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             if(category === 'all') document.getElementById('m-all').classList.add('active');
             if(category === 'new') document.getElementById('m-new').classList.add('active');
@@ -628,12 +696,73 @@
             });
         }
 
+        function copyLink(link, event) {
+            event.preventDefault();
+            navigator.clipboard.writeText(link).then(() => {
+                showToast(translations[currentLang].copied);
+            });
+        }
+
         function showToast(msg) {
             const toast = document.getElementById('toast-msg');
             toast.innerText = msg;
             toast.classList.add('show');
             setTimeout(() => { toast.classList.remove('show'); }, 2500);
         }
+
+        /* 🌌 INTERAKTĪVĀ MATRICAS/DAĻIŅU FONDA LOGIKA */
+        const canvas = document.getElementById('bg-particles');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 0.4 - 0.2;
+                this.speedY = Math.random() * 0.4 - 0.2;
+                this.alpha = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(0, 240, 255, ${this.alpha})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = Math.min(60, Math.floor(window.innerWidth / 20));
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        }
+        initParticles();
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
 
         window.onload = function() {
             changeLanguage('en');
