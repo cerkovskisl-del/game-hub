@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Pepe vs MrBeast Network — Ultimate Gaming Hub</title>
     <style>
         :root {
@@ -29,43 +29,26 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 120px 24px 60px 24px;
-            overflow-x: hidden;
+            padding: 140px 16px 40px 16px; /* Nodrošina vietu no augšējā menu */
+            overflow-x: hidden; /* Neļauj lapai slīdēt pa labi/kreisi */
             -webkit-font-smoothing: antialiased;
             position: relative;
         }
 
-        /* Fona neona apgaismojums */
         body::before, body::after {
             content: '';
             position: absolute;
-            width: 700px;
-            height: 700px;
+            width: 300px;
+            height: 300px;
             border-radius: 50%;
             pointer-events: none;
             z-index: -1;
-            filter: blur(160px);
-            opacity: 0.12;
-            animation: floatGlow 15s infinite alternate ease-in-out;
+            filter: blur(100px);
+            opacity: 0.15;
         }
-        body::before {
-            top: -100px;
-            left: -100px;
-            background: var(--pepe);
-        }
-        body::after {
-            bottom: 100px;
-            right: -100px;
-            background: var(--premium-pink);
-            animation-delay: -7.5s;
-        }
+        body::before { top: 0; left: 0; background: var(--pepe); }
+        body::after { bottom: 0; right: 0; background: var(--premium-pink); }
 
-        @keyframes floatGlow {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(100px, 80px) scale(1.2); }
-        }
-
-        /* 🌌 KUSTĪGO DAĻIŅU FONS CANVAS */
         #bg-particles {
             position: fixed;
             top: 0;
@@ -76,22 +59,20 @@
             pointer-events: none;
         }
 
-        /* MENU JOSLA */
+        /* RESPONSĪVA NAVIGĀCIJAS JOSLA */
         .navbar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 75px;
-            background: rgba(5, 7, 15, 0.8);
+            background: rgba(5, 7, 15, 0.9);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             z-index: 100;
+            padding: 12px 16px;
             display: flex;
             justify-content: center;
-            align-items: center;
-            padding: 0 24px;
         }
 
         .nav-container {
@@ -100,74 +81,72 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 10px;
         }
 
         .logo {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: 900;
-            letter-spacing: -1px;
+            letter-spacing: -0.5px;
             text-transform: uppercase;
             background: linear-gradient(90deg, var(--pepe), var(--beast));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             cursor: pointer;
-            text-shadow: 0 0 20px rgba(0, 255, 102, 0.3);
+            flex-shrink: 0;
         }
 
         .nav-menu {
             display: flex;
-            gap: 30px;
+            gap: 20px;
             list-style: none;
         }
 
         .nav-item {
             color: #94a3b8;
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             transition: color 0.3s ease;
             cursor: pointer;
         }
 
         .nav-item:hover, .nav-item.active {
             color: #fff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
         .nav-right {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
 
         .support-btn {
             background: linear-gradient(90deg, #00f0ff, #ff007f);
             color: #fff;
             text-decoration: none;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: 10px 18px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(255, 0, 127, 0.3);
+            padding: 8px 14px;
+            border-radius: 10px;
             transition: all 0.3s ease;
+            flex-shrink: 0;
         }
 
         .support-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 0, 127, 0.5);
+            transform: translateY(-1px);
             filter: brightness(1.1);
         }
 
         .lang-mini-switcher {
             display: flex;
-            gap: 6px;
+            gap: 4px;
             background: rgba(255,255,255,0.03);
-            padding: 4px;
-            border-radius: 10px;
+            padding: 3px;
+            border-radius: 8px;
             border: 1px solid rgba(255,255,255,0.05);
         }
 
@@ -175,12 +154,11 @@
             background: transparent;
             border: none;
             color: #64748b;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 800;
-            padding: 6px 10px;
-            border-radius: 6px;
+            padding: 5px 8px;
+            border-radius: 5px;
             cursor: pointer;
-            transition: all 0.2s ease;
         }
 
         .lang-mini-btn.active {
@@ -190,306 +168,248 @@
 
         header {
             text-align: center;
-            margin-bottom: 40px;
-            position: relative;
+            margin-bottom: 30px;
+            width: 100%;
         }
 
         h1 {
-            font-size: 4.5rem;
+            font-size: 2.8rem;
             font-weight: 900;
-            letter-spacing: -3px;
-            margin-bottom: 12px;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
             text-transform: uppercase;
-            background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 70%, #6366f1 100%);
+            background: linear-gradient(135deg, #ffffff 40%, #6366f1 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: titlePulse 4s infinite alternate ease-in-out;
-        }
-
-        @keyframes titlePulse {
-            0% { filter: drop-shadow(0 0 0px rgba(255,255,255,0)); }
-            100% { filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.3)); }
+            line-height: 1.1;
         }
 
         p.subtitle {
-            font-size: 0.95rem;
+            font-size: 0.8rem;
             color: #475569;
             text-transform: uppercase;
-            letter-spacing: 6px;
+            letter-spacing: 3px;
             font-weight: 700;
         }
 
         .search-container {
             width: 100%;
-            max-width: 550px;
-            margin-bottom: 50px;
-            position: relative;
-            z-index: 5;
+            max-width: 500px;
+            margin-bottom: 35px;
         }
 
         .search-input {
             width: 100%;
-            padding: 18px 26px;
+            padding: 14px 20px;
             font-family: var(--font-cyber);
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: #fff;
             background: var(--glass);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
+            border-radius: 16px;
             outline: none;
             transition: all 0.3s ease;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
         .search-input:focus {
             border-color: var(--pepe);
-            box-shadow: 0 0 30px rgba(0, 255, 102, 0.15);
         }
 
-        /* SPĒĻU REŽĢIS */
+        /* SPĒĻU REŽĢIS (GRID) */
         .games-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
             max-width: 1200px;
             width: 100%;
-            margin-bottom: 100px;
+            margin-bottom: 60px;
         }
 
         .game-card {
             background: var(--glass);
             border: 1px solid var(--border-glow);
-            border-radius: 28px;
+            border-radius: 20px;
             overflow: hidden;
             text-decoration: none;
             color: #ffffff;
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
             display: flex;
             flex-direction: column;
             position: relative;
-        }
-
-        .game-card::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 28px;
-            padding: 1px;
-            background: linear-gradient(to bottom, rgba(255,255,255,0.1), transparent);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-            transition: background 0.3s ease;
+            transition: transform 0.3s ease;
         }
 
         .game-card:hover {
-            transform: translateY(-8px) scale(1.01);
-            background: rgba(17, 22, 43, 0.85);
-            box-shadow: 0 30px 60px rgba(0, 255, 102, 0.15);
-        }
-        .game-card:hover::after {
-            background: linear-gradient(135deg, var(--pepe), var(--beast));
+            transform: translateY(-5px);
         }
 
         .new-tag {
             position: absolute;
-            top: 24px;
-            right: 24px;
+            top: 16px;
+            right: 16px;
             background: linear-gradient(90deg, #ff007f, #7928ca);
             color: #fff;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 800;
-            padding: 6px 14px;
-            border-radius: 10px;
+            padding: 4px 10px;
+            border-radius: 8px;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            box-shadow: 0 0 20px rgba(255, 0, 127, 0.6);
             z-index: 10;
-            animation: pulseGlow 2s infinite;
-        }
-
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 15px rgba(255, 0, 127, 0.5); }
-            50% { box-shadow: 0 0 30px rgba(255, 0, 127, 0.9); }
-            100% { box-shadow: 0 0 15px rgba(255, 0, 127, 0.5); }
         }
 
         .game-thumbnail {
             width: 100%;
-            height: 220px;
+            height: 180px;
             background: radial-gradient(circle at center, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0.5) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 5.5rem;
-            position: relative;
+            font-size: 4.5rem;
             border-bottom: 1px solid var(--border-glow);
-            transition: transform 0.4s ease;
-        }
-
-        .game-card:hover .game-thumbnail {
-            transform: scale(1.05);
         }
 
         .game-info {
-            padding: 32px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
         }
 
         .game-info h2 {
-            margin-bottom: 24px;
-            font-size: 1.5rem;
+            margin-bottom: 16px;
+            font-size: 1.25rem;
             font-weight: 800;
-            letter-spacing: -0.5px;
             color: #fff;
+            line-height: 1.3;
         }
 
-        /* ACTIONS JOSLA (PLAY + SHARE) */
         .card-actions {
             margin-top: auto;
             display: flex;
-            gap: 12px;
+            gap: 10px;
             align-items: center;
         }
 
         .play-btn {
             flex-grow: 1;
-            padding: 16px 0;
-            background: rgba(255, 255, 255, 0.02);
+            padding: 12px 0;
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
+            border-radius: 12px;
             color: #e2e8f0;
             text-align: center;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            transition: all 0.2s ease;
         }
 
         .game-card:hover .play-btn {
             background: #ffffff;
             color: #000000;
             border-color: #ffffff;
-            box-shadow: 0 15px 30px rgba(255, 255, 255, 0.2);
         }
 
-        /* 🔗 KRUTA KOPĒŠANAS POGA (SHARE) */
         .share-btn {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            width: 52px;
-            height: 52px;
-            border-radius: 16px;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1.2rem;
+            font-size: 1rem;
+            transition: all 0.2s ease;
         }
 
         .share-btn:hover {
             background: var(--beast);
             border-color: var(--beast);
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
         }
 
-        /* TOAST PAZIŅOJUMS */
         .toast {
             position: fixed;
             bottom: -100px;
-            right: 24px;
-            background: var(--glass);
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(13, 17, 33, 0.95);
             border: 1px solid var(--pepe);
-            padding: 16px 28px;
-            border-radius: 16px;
+            padding: 12px 24px;
+            border-radius: 12px;
             color: #fff;
             font-weight: 600;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 0.85rem;
             z-index: 1000;
+            white-space: nowrap;
+            transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .toast.show { bottom: 24px; }
+        .toast.show { bottom: 20px; }
 
         footer {
             margin-top: auto;
             text-align: center;
-            padding-top: 40px;
+            padding-top: 24px;
             border-top: 1px solid rgba(255, 255, 255, 0.03);
             width: 100%;
-            max-width: 1200px;
         }
 
         footer p {
             color: #475569;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            margin-bottom: 15px;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
         }
 
         .footer-support {
             display: inline-block;
             color: #94a3b8;
             text-decoration: none;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 700;
             border-bottom: 1px dashed rgba(255,255,255,0.2);
-            transition: color 0.3s ease, border-color 0.3s ease;
         }
 
-        .footer-support:hover {
-            color: var(--pepe);
-            border-color: var(--pepe);
-        }
-
+        /* 🚨 PILNĪGS MOBILAIS LABOJUMS (TELEFONIEM) */
         @media (max-width: 768px) {
-            body { padding-top: 100px; padding-left: 12px; padding-right: 12px; }
-            h1 { font-size: 2.3rem; letter-spacing: -1px; }
-            p.subtitle { font-size: 0.75rem; letter-spacing: 3px; }
+            body { padding-top: 125px; padding-left: 8px; padding-right: 8px; }
+            h1 { font-size: 2rem; }
+            p.subtitle { font-size: 0.7rem; letter-spacing: 2px; }
+
+            .navbar { padding: 8px 10px; }
+            .nav-menu { display: none; } /* Paslēpj liekās menu saites uz telefona */
             
-            .nav-menu { display: none; }
-            
-            .search-container { margin-bottom: 35px; padding: 0 4px; }
-            .search-input { padding: 14px 20px; font-size: 0.9rem; border-radius: 14px; }
+            .logo { font-size: 1.1rem; }
+            .support-btn { padding: 6px 10px; font-size: 0.7rem; border-radius: 8px; }
 
             .games-grid { 
-                grid-template-columns: repeat(2, 1fr); 
-                gap: 12px; 
-                margin-bottom: 60px;
+                grid-template-columns: repeat(2, 1fr); /* Divas kolonnas uz telefona */
+                gap: 8px; 
+                margin-bottom: 40px;
             }
             
-            .game-card { border-radius: 16px; height: 100%; }
-            .game-card::after { border-radius: 16px; }
-            .game-thumbnail { height: 110px; font-size: 2.8rem; }
+            .game-card { border-radius: 14px; }
+            .game-thumbnail { height: 100px; font-size: 2.5rem; }
+            .game-info { padding: 10px; }
             
-            .game-info { padding: 12px; justify-content: space-between; }
             .game-info h2 { 
-                font-size: 0.95rem; 
-                line-height: 1.3;
-                margin-bottom: 12px; 
-                font-weight: 700;
+                font-size: 0.85rem; 
+                margin-bottom: 10px;
                 display: -webkit-box;
                 -webkit-line-clamp: 2;
                 -webkit-box-orient: vertical;
                 overflow: hidden;
+                height: 2.4em; /* Nobloķē augstumu, lai kartītes būtu vienādas */
             }
             
-            .card-actions { gap: 6px; }
-            .play-btn { padding: 10px 0; font-size: 0.75rem; border-radius: 10px; }
-            .share-btn { width: 36px; height: 36px; border-radius: 10px; font-size: 0.9rem; }
-            
-            .new-tag { top: 8px; right: 8px; font-size: 0.55rem; padding: 2px 6px; border-radius: 5px; }
-            .support-btn { padding: 8px 12px; font-size: 0.7rem; border-radius: 8px; }
+            .card-actions { gap: 4px; }
+            .play-btn { padding: 8px 0; font-size: 0.7rem; border-radius: 8px; }
+            .share-btn { width: 32px; height: 32px; border-radius: 8px; font-size: 0.8rem; }
+            .new-tag { top: 6px; right: 6px; font-size: 0.5rem; padding: 2px 6px; border-radius: 4px; }
         }
     </style>
 </head>
@@ -602,7 +522,7 @@
     <div id="toast-msg" class="toast">Category updated!</div>
 
     <footer>
-        <p>&copy; 2026 Pepe vs MrBeast Gaming Hub Network. Engineered for Gamers.</p>
+        <p>&copy; 2026 Pepe vs MrBeast Gaming Hub Network.</p>
         <a href="https://revolut.me/igorsyeqd" target="_blank" id="footer-support-link" class="footer-support">Support Developer</a>
     </footer>
 
@@ -611,7 +531,7 @@
             lv: {
                 title: "Pepe vs MrBeast", subtitle: "Visas spēles vienuviet", play: "Spēlēt", search: "Meklēt spēli...",
                 m_all: "Visas Spēles", m_new: "Jaunumi", m_pop: "Populāras", toast: "Kategorija atjaunināta!",
-                support: "Atbalstīt", footer_support: "Atbalstīt izstrādātāju", copied: "Saite iekopēta starpliktuvē!",
+                support: "Atbalstīt", footer_support: "Atbalstīt izstrādātāju", copied: "Saite kopēta!",
                 g1_title: "Pepe vs MrBeast Tower Defense", g2_title: "Pepe Army vs Mr Beast",
                 g3_title: "Pepe vs MrBeast", g4_title: "Pepe Platformer", 
                 g5_title: "Flappy Pepe Beast Escape", g6_title: "Pepe Memory", g7_title: "Pepe Dash"
@@ -619,7 +539,7 @@
             en: {
                 title: "Pepe vs MrBeast", subtitle: "All games in one place", play: "Play", search: "Search games...",
                 m_all: "All Games", m_new: "New", m_pop: "Popular", toast: "Category updated!",
-                support: "Support", footer_support: "Support Developer", copied: "Link copied to clipboard!",
+                support: "Support", footer_support: "Support Developer", copied: "Link copied!",
                 g1_title: "Pepe vs MrBeast Tower Defense", g2_title: "Pepe Army vs Mr Beast",
                 g3_title: "Pepe vs MrBeast", g4_title: "Pepe Platformer", 
                 g5_title: "Flappy Pepe Beast Escape", g6_title: "Pepe Memory", g7_title: "Pepe Dash"
@@ -643,9 +563,11 @@
             document.getElementById('main-subtitle').innerText = translations[lang].subtitle;
             document.getElementById('search-bar').placeholder = translations[lang].search;
             
-            document.getElementById('m-all').innerText = translations[lang].m_all;
-            document.getElementById('m-new').innerText = translations[lang].m_new;
-            document.getElementById('m-pop').innerText = translations[lang].m_pop;
+            if(document.getElementById('m-all')) {
+                document.getElementById('m-all').innerText = translations[lang].m_all;
+                document.getElementById('m-new').innerText = translations[lang].m_new;
+                document.getElementById('m-pop').innerText = translations[lang].m_pop;
+            }
             
             document.getElementById('nav-support').innerText = translations[lang].support;
             document.getElementById('footer-support-link').innerText = translations[lang].footer_support;
@@ -666,10 +588,11 @@
         function filterCategory(category) {
             currentCategory = category;
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            if(category === 'all') document.getElementById('m-all').classList.add('active');
-            if(category === 'new') document.getElementById('m-new').classList.add('active');
-            if(category === 'popular') document.getElementById('m-pop').classList.add('active');
-
+            if(document.getElementById('m-all')) {
+                if(category === 'all') document.getElementById('m-all').classList.add('active');
+                if(category === 'new') document.getElementById('m-new').classList.add('active');
+                if(category === 'popular') document.getElementById('m-pop').classList.add('active');
+            }
             showToast(translations[currentLang].toast);
             filterGames();
         }
@@ -710,7 +633,6 @@
             setTimeout(() => { toast.classList.remove('show'); }, 2500);
         }
 
-        /* 🌌 INTERAKTĪVĀ MATRICAS/DAĻIŅU FONDA LOGIKA */
         const canvas = document.getElementById('bg-particles');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -726,10 +648,10 @@
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = Math.random() * 0.4 - 0.2;
-                this.speedY = Math.random() * 0.4 - 0.2;
-                this.alpha = Math.random() * 0.5 + 0.2;
+                this.size = Math.random() * 1.5 + 0.5;
+                this.speedX = Math.random() * 0.2 - 0.1;
+                this.speedY = Math.random() * 0.2 - 0.1;
+                this.alpha = Math.random() * 0.4 + 0.1;
             }
             update() {
                 this.x += this.speedX;
@@ -747,7 +669,7 @@
 
         function initParticles() {
             particles = [];
-            const count = Math.min(60, Math.floor(window.innerWidth / 20));
+            const count = Math.min(30, Math.floor(window.innerWidth / 30));
             for (let i = 0; i < count; i++) {
                 particles.push(new Particle());
             }
