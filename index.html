@@ -29,8 +29,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 140px 16px 40px 16px; /* Nodrošina vietu no augšējā menu */
-            overflow-x: hidden; /* Neļauj lapai slīdēt pa labi/kreisi */
+            padding: 140px 16px 40px 16px;
+            overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             position: relative;
         }
@@ -59,7 +59,6 @@
             pointer-events: none;
         }
 
-        /* RESPONSĪVA NAVIGĀCIJAS JOSLA */
         .navbar {
             position: fixed;
             top: 0;
@@ -215,7 +214,6 @@
             border-color: var(--pepe);
         }
 
-        /* SPĒĻU REŽĢIS (GRID) */
         .games-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -374,20 +372,19 @@
             border-bottom: 1px dashed rgba(255,255,255,0.2);
         }
 
-        /* 🚨 PILNĪGS MOBILAIS LABOJUMS (TELEFONIEM) */
         @media (max-width: 768px) {
             body { padding-top: 125px; padding-left: 8px; padding-right: 8px; }
             h1 { font-size: 2rem; }
             p.subtitle { font-size: 0.7rem; letter-spacing: 2px; }
 
             .navbar { padding: 8px 10px; }
-            .nav-menu { display: none; } /* Paslēpj liekās menu saites uz telefona */
+            .nav-menu { display: none; }
             
             .logo { font-size: 1.1rem; }
             .support-btn { padding: 6px 10px; font-size: 0.7rem; border-radius: 8px; }
 
             .games-grid { 
-                grid-template-columns: repeat(2, 1fr); /* Divas kolonnas uz telefona */
+                grid-template-columns: repeat(2, 1fr);
                 gap: 8px; 
                 margin-bottom: 40px;
             }
@@ -403,7 +400,7 @@
                 -webkit-line-clamp: 2;
                 -webkit-box-orient: vertical;
                 overflow: hidden;
-                height: 2.4em; /* Nobloķē augstumu, lai kartītes būtu vienādas */
+                height: 2.4em;
             }
             
             .card-actions { gap: 4px; }
@@ -517,6 +514,17 @@
                 </div>
             </div>
         </div>
+        <div class="game-card" data-new="true">
+            <div class="new-tag">New</div>
+            <div class="game-thumbnail">🔫</div>
+            <div class="game-info">
+                <h2 id="g8-title">CS:GO Multi Clicker</h2>
+                <div class="card-actions">
+                    <a href="https://cs-go-3.onrender.com/" target="_blank" class="play-btn class-play-btn">Play</a>
+                    <div class="share-btn" onclick="copyLink('https://cs-go-3.onrender.com/', event)">🔗</div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="toast-msg" class="toast">Category updated!</div>
@@ -534,7 +542,8 @@
                 support: "Atbalstīt", footer_support: "Atbalstīt izstrādātāju", copied: "Saite kopēta!",
                 g1_title: "Pepe vs MrBeast Tower Defense", g2_title: "Pepe Army vs Mr Beast",
                 g3_title: "Pepe vs MrBeast", g4_title: "Pepe Platformer", 
-                g5_title: "Flappy Pepe Beast Escape", g6_title: "Pepe Memory", g7_title: "Pepe Dash"
+                g5_title: "Flappy Pepe Beast Escape", g6_title: "Pepe Memory", g7_title: "Pepe Dash",
+                g8_title: "CS:GO Multi Clicker"
             },
             en: {
                 title: "Pepe vs MrBeast", subtitle: "All games in one place", play: "Play", search: "Search games...",
@@ -542,7 +551,8 @@
                 support: "Support", footer_support: "Support Developer", copied: "Link copied!",
                 g1_title: "Pepe vs MrBeast Tower Defense", g2_title: "Pepe Army vs Mr Beast",
                 g3_title: "Pepe vs MrBeast", g4_title: "Pepe Platformer", 
-                g5_title: "Flappy Pepe Beast Escape", g6_title: "Pepe Memory", g7_title: "Pepe Dash"
+                g5_title: "Flappy Pepe Beast Escape", g6_title: "Pepe Memory", g7_title: "Pepe Dash",
+                g8_title: "CS:GO Multi Clicker"
             },
             ru: {
                 title: "Pepe vs MrBeast", subtitle: "Все игры в одном месте", play: "Играть", search: "Поиск игры...",
@@ -550,7 +560,8 @@
                 support: "Поддержать", footer_support: "Поддержать разработчика", copied: "Ссылка скопирована!",
                 g1_title: "Pepe vs MrBeast Tower Defense", g2_title: "Pepe Army vs Mr Beast",
                 g3_title: "Pepe vs MrBeast", g4_title: "Pepe Platformer", 
-                g5_title: "Flappy Pepe Beast Escape", g6_title: "Pepe Memory", g7_title: "Pepe Dash"
+                g5_title: "Flappy Pepe Beast Escape", g6_title: "Pepe Memory", g7_title: "Pepe Dash",
+                g8_title: "CS:GO Multi Clicker"
             }
         };
 
@@ -572,8 +583,10 @@
             document.getElementById('nav-support').innerText = translations[lang].support;
             document.getElementById('footer-support-link').innerText = translations[lang].footer_support;
 
-            for (let i = 1; i <= 7; i++) {
-                document.getElementById(`g${i}-title`).innerText = translations[lang][`g${i}_title`];
+            for (let i = 1; i <= 8; i++) {
+                if(document.getElementById(`g${i}-title`)) {
+                    document.getElementById(`g${i}-title`).innerText = translations[lang][`g${i}_title`];
+                }
             }
 
             const playButtons = document.querySelectorAll('.class-play-btn');
