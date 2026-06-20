@@ -421,6 +421,7 @@
                 <li><a class="nav-item active" id="m-all" onclick="filterCategory('all')">All Games</a></li>
                 <li><a class="nav-item" id="m-new" onclick="filterCategory('new')">New</a></li>
                 <li><a class="nav-item" id="m-pop" onclick="filterCategory('popular')">Popular</a></li>
+                <li><a class="nav-item" id="m-sim" onclick="filterCategory('simulations')">Simulations</a></li>
             </ul>
             <div class="nav-right">
                 <a href="https://revolut.me/igorsyeqd" target="_blank" id="nav-support" class="support-btn">Support</a>
@@ -525,6 +526,40 @@
                 </div>
             </div>
         </div>
+        
+        <div class="game-card" data-new="true" data-sim="true">
+            <div class="new-tag">New</div>
+            <div class="game-thumbnail">🔮</div>
+            <div class="game-info">
+                <h2 id="g9-title">Marble Race Simulation</h2>
+                <div class="card-actions">
+                    <a href="https://marble-race-peach.vercel.app/" target="_blank" class="play-btn class-play-btn">Play</a>
+                    <div class="share-btn" onclick="copyLink('https://marble-race-peach.vercel.app/', event)">🔗</div>
+                </div>
+            </div>
+        </div>
+        <div class="game-card" data-new="true" data-sim="true">
+            <div class="new-tag">New</div>
+            <div class="game-thumbnail">⚽</div>
+            <div class="game-info">
+                <h2 id="g10-title">Physics Ball Simulation</h2>
+                <div class="card-actions">
+                    <a href="https://physics-ball-simulation-five.vercel.app/" target="_blank" class="play-btn class-play-btn">Play</a>
+                    <div class="share-btn" onclick="copyLink('https://physics-ball-simulation-five.vercel.app/', event)">🔗</div>
+                </div>
+            </div>
+        </div>
+        <div class="game-card" data-new="true" data-pop="true" data-sim="true">
+            <div class="new-tag">New</div>
+            <div class="game-thumbnail">🌍</div>
+            <div class="game-info">
+                <h2 id="g11-title">Country Ball Elimination</h2>
+                <div class="card-actions">
+                    <a href="https://country-ball-elimination-game.vercel.app/" target="_blank" class="play-btn class-play-btn">Play</a>
+                    <div class="share-btn" onclick="copyLink('https://country-ball-elimination-game.vercel.app/', event)">🔗</div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="toast-msg" class="toast">Category updated!</div>
@@ -538,30 +573,33 @@
         const translations = {
             lv: {
                 title: "Pepe vs MrBeast", subtitle: "Visas spēles vienuviet", play: "Spēlēt", search: "Meklēt spēli...",
-                m_all: "Visas Spēles", m_new: "Jaunumi", m_pop: "Populāras", toast: "Kategorija atjaunināta!",
+                m_all: "Visas Spēles", m_new: "Jaunumi", m_pop: "Populāras", m_sim: "Simulācijas", toast: "Kategorija atjaunināta!",
                 support: "Atbalstīt", footer_support: "Atbalstīt izstrādātāju", copied: "Saite kopēta!",
                 g1_title: "Pepe vs MrBeast Tower Defense", g2_title: "Pepe Army vs Mr Beast",
                 g3_title: "Pepe vs MrBeast", g4_title: "Pepe Platformer", 
                 g5_title: "Flappy Pepe Beast Escape", g6_title: "Pepe Memory", g7_title: "Pepe Dash",
-                g8_title: "CS:GO Multi Clicker"
+                g8_title: "CS:GO Multi Clicker", g9_title: "Marmora bumbiņu sacīkstes",
+                g10_title: "Fizikas bumbas simulācija", g11_title: "Valstu bumbu izslēgšanas spēle"
             },
             en: {
                 title: "Pepe vs MrBeast", subtitle: "All games in one place", play: "Play", search: "Search games...",
-                m_all: "All Games", m_new: "New", m_pop: "Popular", toast: "Category updated!",
+                m_all: "All Games", m_new: "New", m_pop: "Popular", m_sim: "Simulations", toast: "Category updated!",
                 support: "Support", footer_support: "Support Developer", copied: "Link copied!",
                 g1_title: "Pepe vs MrBeast Tower Defense", g2_title: "Pepe Army vs Mr Beast",
                 g3_title: "Pepe vs MrBeast", g4_title: "Pepe Platformer", 
                 g5_title: "Flappy Pepe Beast Escape", g6_title: "Pepe Memory", g7_title: "Pepe Dash",
-                g8_title: "CS:GO Multi Clicker"
+                g8_title: "CS:GO Multi Clicker", g9_title: "Marble Race Simulation",
+                g10_title: "Physics Ball Simulation", g11_title: "Country Ball Elimination"
             },
             ru: {
                 title: "Pepe vs MrBeast", subtitle: "Все игры в одном месте", play: "Играть", search: "Поиск игры...",
-                m_all: "Все игры", m_new: "Новинки", m_pop: "Популярные", toast: "Категория обновлена!",
+                m_all: "Все игры", m_new: "Новинки", m_pop: "Популярные", m_sim: "Симуляции", toast: "Категория обновлена!",
                 support: "Поддержать", footer_support: "Поддержать разработчика", copied: "Ссылка скопирована!",
                 g1_title: "Pepe vs MrBeast Tower Defense", g2_title: "Pepe Army vs Mr Beast",
                 g3_title: "Pepe vs MrBeast", g4_title: "Pepe Platformer", 
                 g5_title: "Flappy Pepe Beast Escape", g6_title: "Pepe Memory", g7_title: "Pepe Dash",
-                g8_title: "CS:GO Multi Clicker"
+                g8_title: "CS:GO Multi Clicker", g9_title: "Симулятор гонок шариков",
+                g10_title: "Симуляция физики мяча", g11_title: "Игра на выбывание стран"
             }
         };
 
@@ -578,12 +616,13 @@
                 document.getElementById('m-all').innerText = translations[lang].m_all;
                 document.getElementById('m-new').innerText = translations[lang].m_new;
                 document.getElementById('m-pop').innerText = translations[lang].m_pop;
+                document.getElementById('m-sim').innerText = translations[lang].m_sim;
             }
             
             document.getElementById('nav-support').innerText = translations[lang].support;
             document.getElementById('footer-support-link').innerText = translations[lang].footer_support;
 
-            for (let i = 1; i <= 8; i++) {
+            for (let i = 1; i <= 11; i++) {
                 if(document.getElementById(`g${i}-title`)) {
                     document.getElementById(`g${i}-title`).innerText = translations[lang][`g${i}_title`];
                 }
@@ -605,6 +644,7 @@
                 if(category === 'all') document.getElementById('m-all').classList.add('active');
                 if(category === 'new') document.getElementById('m-new').classList.add('active');
                 if(category === 'popular') document.getElementById('m-pop').classList.add('active');
+                if(category === 'simulations') document.getElementById('m-sim').classList.add('active');
             }
             showToast(translations[currentLang].toast);
             filterGames();
@@ -623,6 +663,7 @@
 
                 if (currentCategory === 'new' && !card.getAttribute('data-new')) matchesCategory = false;
                 if (currentCategory === 'popular' && !card.getAttribute('data-pop')) matchesCategory = false;
+                if (currentCategory === 'simulations' && !card.getAttribute('data-sim')) matchesCategory = false;
 
                 if (matchesSearch && matchesCategory) {
                     card.style.display = 'flex';
