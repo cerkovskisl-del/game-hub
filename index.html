@@ -498,6 +498,18 @@
     </div>
 
     <div class="games-grid" id="games-grid">
+        <div class="game-card" data-new="true" data-pop="true" data-sim="true">
+            <div class="new-tag">New</div>
+            <div class="game-thumbnail">🪐</div>
+            <div class="game-info">
+                <h2 id="g12-title">Pepetopia</h2>
+                <div class="card-actions">
+                    <a href="https://pepetopia-rust.vercel.app" target="_blank" class="play-btn class-play-btn">Play</a>
+                    <div class="share-btn" onclick="copyLink('https://pepetopia-rust.vercel.app', event)" title="Share">🔗</div>
+                </div>
+            </div>
+        </div>
+
         <div class="game-card" data-new="true" data-pop="true">
             <div class="new-tag">New</div>
             <div class="game-thumbnail">🏰</div>
@@ -633,7 +645,8 @@
                 g3_title: "Pepe vs MrBeast", g4_title: "Pepe Platformer", 
                 g5_title: "Flappy Pepe Beast Escape", g6_title: "Pepe Memory", g7_title: "Pepe Dash",
                 g8_title: "CS:GO Multi Clicker", g9_title: "Marmora bumbiņu sacīkstes",
-                g10_title: "Fizikas bumbas simulācija", g11_title: "Valstu bumbu izslēgšanas spēle"
+                g10_title: "Fizikas bumbas simulācija", g11_title: "Valstu bumbu izslēgšanas spēle",
+                g12_title: "Pepetopia"
             },
             en: {
                 title: "Pepe vs MrBeast", subtitle: "All games in one place", play: "Play", search: "Search games...",
@@ -643,7 +656,8 @@
                 g3_title: "Pepe vs MrBeast", g4_title: "Pepe Platformer", 
                 g5_title: "Flappy Pepe Beast Escape", g6_title: "Pepe Memory", g7_title: "Pepe Dash",
                 g8_title: "CS:GO Multi Clicker", g9_title: "Marble Race Simulation",
-                g10_title: "Physics Ball Simulation", g11_title: "Country Ball Elimination"
+                g10_title: "Physics Ball Simulation", g11_title: "Country Ball Elimination",
+                g12_title: "Pepetopia"
             },
             ru: {
                 title: "Pepe vs MrBeast", subtitle: "Все игры в одном месте", play: "Играть", search: "Поиск игры...",
@@ -653,7 +667,8 @@
                 g3_title: "Pepe vs MrBeast", g4_title: "Pepe Platformer", 
                 g5_title: "Flappy Pepe Beast Escape", g6_title: "Pepe Memory", g7_title: "Pepe Dash",
                 g8_title: "CS:GO Multi Clicker", g9_title: "Симулятор гонок шариков",
-                g10_title: "Симуляция физики мяча", g11_title: "Игра на выбывание стран"
+                g10_title: "Симуляция физики мяча", g11_title: "Игра на выбывание стран",
+                g12_title: "Пепетопия"
             }
         };
 
@@ -677,7 +692,7 @@
             document.getElementById('nav-support').innerText = translations[lang].support;
             document.getElementById('footer-support-link').innerText = translations[lang].footer_support;
 
-            for (let i = 1; i <= 11; i++) {
+            for (let i = 1; i <= 12; i++) {
                 if(document.getElementById(`g${i}-title`)) {
                     document.getElementById(`g${i}-title`).innerText = translations[lang][`g${i}_title`];
                 }
@@ -709,9 +724,12 @@
             const query = document.getElementById('search-bar').value.toLowerCase().trim();
             const cards = document.querySelectorAll('.game-card');
 
-            cards.forEach((card, index) => {
-                const titleKey = `g${index + 1}_title`;
-                const titleText = translations[currentLang][titleKey].toLowerCase();
+            cards.forEach((card) => {
+                const titleElement = card.querySelector('h2');
+                const titleId = titleElement ? titleElement.id : '';
+                const titleKey = titleId.replace('-title', '_title');
+                
+                const titleText = translations[currentLang][titleKey] ? translations[currentLang][titleKey].toLowerCase() : '';
                 
                 const matchesSearch = titleText.includes(query);
                 let matchesCategory = true;
@@ -721,9 +739,8 @@
                 if (currentCategory === 'simulations' && !card.getAttribute('data-sim')) matchesCategory = false;
 
                 if (matchesSearch && matchesCategory) {
-                    // Reset animation for smooth re-entry
                     card.style.animation = 'none';
-                    card.offsetHeight; /* trigger reflow */
+                    card.offsetHeight; 
                     card.style.animation = null; 
                     card.style.display = 'flex';
                 } else {
@@ -752,7 +769,7 @@
             }, 2500);
         }
 
-        // Optimized Background Particles with Retina Support
+        // Background Particles
         const canvas = document.getElementById('bg-particles');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -762,8 +779,6 @@
             canvas.width = window.innerWidth * dpr;
             canvas.height = window.innerHeight * dpr;
             ctx.scale(dpr, dpr);
-            
-            // To ensure CSS handles the layout size
             canvas.style.width = window.innerWidth + 'px';
             canvas.style.height = window.innerHeight + 'px';
         }
@@ -772,7 +787,6 @@
 
         class Particle {
             constructor() {
-                // Logical width/height independent of DPR
                 this.x = Math.random() * window.innerWidth;
                 this.y = Math.random() * window.innerHeight;
                 this.size = Math.random() * 1.5 + 0.5;
@@ -796,7 +810,7 @@
 
         function initParticles() {
             particles = [];
-            const count = Math.min(40, Math.floor(window.innerWidth / 25)); // Slightly more particles for density
+            const count = Math.min(40, Math.floor(window.innerWidth / 25));
             for (let i = 0; i < count; i++) {
                 particles.push(new Particle());
             }
